@@ -21,14 +21,26 @@ import java.util.UUID;
 public class JClientGuildOutput {
 
 
-    public static void test(UUID guildUUID, String guildName) {
+    public static void create_guild(String guildName, UUID creator) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
         try {
-            dataOutputStream.writeUTF("test");
-            dataOutputStream.writeUTF(guildUUID.toString());
+            dataOutputStream.writeUTF("guild_create_guild");
             dataOutputStream.writeUTF(guildName);
+            dataOutputStream.writeUTF(creator.toString());
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+    }
+
+    public static void remove_guild(UUID actor) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_remove_guild");
+            dataOutputStream.writeUTF(actor.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -11,6 +11,7 @@
 
 package de.linzn.mineGuild.connector;
 
+import de.linzn.mineGuild.connector.commands.GuildCommand;
 import de.linzn.mineGuild.connector.socket.JClientGuildListener;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import net.milkbowl.vault.chat.Chat;
@@ -75,7 +76,10 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
     }
 
     private void loadCommands() {
-        //getCommand("guild").setExecutor(new GuildCommandProvider(this));
+        GuildCommand guildCommand = new GuildCommand(this);
+        if (!guildCommand.isLoaded())
+            guildCommand.loadCmd();
+        getCommand("guild").setExecutor(guildCommand);
     }
 
     private void registerListeners() {
