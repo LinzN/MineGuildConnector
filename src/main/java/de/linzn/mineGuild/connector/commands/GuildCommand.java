@@ -63,6 +63,8 @@ public class GuildCommand implements CommandExecutor {
 
             this.cmdMap.put("create", new Guild_CREATE(this.plugin, ""));
             this.cmdMap.put("remove", new Guild_REMOVE(this.plugin, ""));
+            this.cmdMap.put("info", new Guild_INFO(this.plugin, ""));
+            this.cmdMap.put("members", new Guild_MEMBERS(this.plugin, ""));
 
             this.isLoaded = true;
         } catch (Exception e) {
