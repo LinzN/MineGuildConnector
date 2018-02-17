@@ -1,0 +1,20 @@
+name: MineGuildConnector
+version: ${project.version}
+description: MineGuildConnectorPlugin
+authors: [Kekshaus]
+main: de.linzn.mineGuild.connector.MineGuildConnectorPlugin
+load: POSTWORLD
+depend: [MineSuiteCore, Vault]
+
+commands:
+  guild:
+    description: Guild Command
+
+permissions:
+    mineGuild.team:
+        description: Alle Team Permissions
+        children:
+            mineSuite.guild.user: true
+    mineGuild.withdraw:
+        description: tta
+        default: op
