@@ -73,4 +73,44 @@ public class JClientGuildOutput {
         MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
     }
 
+    public static void invite_to_guild(UUID actor, String invitedName) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_invite_to_guild");
+            dataOutputStream.writeUTF(actor.toString());
+            dataOutputStream.writeUTF(invitedName);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+    }
+
+    public static void accept_invite_guild(UUID actor) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_accept_invite_guild");
+            dataOutputStream.writeUTF(actor.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+    }
+
+    public static void deny_invite_guild(UUID actor) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_deny_invite_guild");
+            dataOutputStream.writeUTF(actor.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+    }
+
 }

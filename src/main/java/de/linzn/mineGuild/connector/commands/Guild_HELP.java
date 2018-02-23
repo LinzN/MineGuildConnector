@@ -12,20 +12,17 @@
 package de.linzn.mineGuild.connector.commands;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
-import de.linzn.mineGuild.connector.socket.JClientGuildOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
-
-public class Guild_MEMBERS implements ICommand {
+public class Guild_HELP implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_MEMBERS(MineGuildConnectorPlugin plugin, String permission) {
+    public Guild_HELP(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -42,13 +39,9 @@ public class Guild_MEMBERS implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        String guildArg = "null";
-        if (args.length > 1) {
-            guildArg = args[1];
-        }
-
-        UUID actor = player.getUniqueId();
-        JClientGuildOutput.members_guild(actor, guildArg);
+        // todo helppages
+        player.sendMessage("hier kommen die Hildeseiten hin!");
         return true;
+
     }
 }

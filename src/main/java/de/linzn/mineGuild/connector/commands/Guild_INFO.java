@@ -13,6 +13,7 @@ package de.linzn.mineGuild.connector.commands;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.socket.JClientGuildOutput;
+import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -32,13 +33,13 @@ public class Guild_INFO implements ICommand {
     @Override
     public boolean runCmd(Command cmd, CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage("No Player");
+            sender.sendMessage(LanguageDB.NO_CONSOLE);
             return true;
         }
         Player player = (Player) sender;
 
         if (!player.hasPermission(permission)) {
-            player.sendMessage("No Perm");
+            player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
         String guildArg = "null";

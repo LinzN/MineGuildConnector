@@ -20,12 +20,12 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class Guild_MEMBERS implements ICommand {
+public class Guild_INVITE implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_MEMBERS(MineGuildConnectorPlugin plugin, String permission) {
+    public Guild_INVITE(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -42,13 +42,16 @@ public class Guild_MEMBERS implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        String guildArg = "null";
-        if (args.length > 1) {
-            guildArg = args[1];
+        if (args.length < 2) {
+            player.sendMessage("/guild invite <PlayerName>");
+            return true;
         }
 
+        String invitedPlayer = args[1];
         UUID actor = player.getUniqueId();
-        JClientGuildOutput.members_guild(actor, guildArg);
+
+        JClientGuildOutput.invite_to_guild(actor, invitedPlayer);
+
         return true;
     }
 }
