@@ -39,8 +39,42 @@ public class Guild_HELP implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        // todo helppages
-        player.sendMessage("hier kommen die Hildeseiten hin!");
+        if (args.length >= 2) {
+
+            if (args[1].equalsIgnoreCase("2")) {
+                player.sendMessage(("§6§lAllgemeine Hilfe: "));
+                player.sendMessage(" §2Gilde erstellen: §e/guild create <Gildenname>");
+                player.sendMessage(" §2Gilde auflösen: §4/guild disband");
+                player.sendMessage(" §2Mitglied einladen: §e/guild invite <Spielername>");
+                player.sendMessage(" §2Mitglied entfernen: §4/guild Kick <Spielername>");
+                player.sendMessage(" §2Alle Gilden auflisten: §4/guild list <Seite>");
+                return true;
+            } else if (args[1].equalsIgnoreCase("3")) {
+                player.sendMessage("§6§lAllgemeine Hilfe: ");
+                player.sendMessage(" §2Gildeneinladung annehmen: §e/guild accept");
+                player.sendMessage(" §2Gildeneinladung ablehnen: §e/guild deny");
+                player.sendMessage(" §2Zum Gildenspawn teleportieren: §4/guild spawn");
+                player.sendMessage(" §2Mines auf Gildenkonto einzahlen: §4/guild deposit <Wert>");
+                player.sendMessage(" §2Mines von Gildenkonto abheben: §4/guild withdraw <Wert>");
+                return true;
+            } else if (args[1].equalsIgnoreCase("4")) {
+                player.sendMessage("§6§lAllgemeine Hilfe: ");
+                player.sendMessage(" §2Placeholder: §4/guild placeholder");
+                return true;
+            } else if (args[1].equalsIgnoreCase("5")) {
+                player.sendMessage("§6§lAllgemeine Hilfe: ");
+                player.sendMessage(" §2Placeholder: §4/guild placeholder");
+                return true;
+            }
+        }
+
+        player.sendMessage("§e§n§6§l-===============[§2§lMineGuild§r§6§l]===============-");
+        player.sendMessage("§2 Gildeninformationen: §e/guild info [Gilde]");
+        player.sendMessage("§2 Gildenmitglieder anzeigen: §e/guild members [Gilde]");
+        player.sendMessage("§6§lÜbersicht der Gilden Hilfebereiche:");
+        player.sendMessage(" §2Allgemeine Hilfe §a/guild help 1 - 5");
+        player.sendMessage(" §2Gildeneinstellungen Hilfe §4/guild edit help");
+        player.sendMessage(" §2Ränge Hilfe §4/guild rangs help");
         return true;
 
     }

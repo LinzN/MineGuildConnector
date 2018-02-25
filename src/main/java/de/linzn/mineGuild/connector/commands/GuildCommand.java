@@ -13,6 +13,7 @@ package de.linzn.mineGuild.connector.commands;
 
 import com.google.common.collect.Maps;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
+import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,11 +44,11 @@ public class GuildCommand implements CommandExecutor {
             } else if (getCmdMap().containsKey(args[0])) {
                 String command = args[0];
                 if (!getCmdMap().get(command).runCmd(cmd, sender, args)) {
-                    sender.sendMessage("/guild help");
+                    sender.sendMessage(LanguageDB.NO_COMMAND.replace("{command}", "/guild help"));
                 }
 
             } else {
-                sender.sendMessage("/guild help");
+                sender.sendMessage(LanguageDB.NO_COMMAND.replace("{command}", "/guild help"));
             }
 
         });
