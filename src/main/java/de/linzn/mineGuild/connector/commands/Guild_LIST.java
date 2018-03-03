@@ -20,12 +20,12 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class Guild_CREATE implements ICommand {
+public class Guild_LIST implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_CREATE(MineGuildConnectorPlugin plugin, String permission) {
+    public Guild_LIST(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -42,16 +42,13 @@ public class Guild_CREATE implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        if (args.length < 2) {
-            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild create <Gilde>"));
-            return true;
+        int page = 1;
+        if (args.length > 1) {
+            page = Integer.parseInt(args[1]);
         }
 
-        String guildName = args[1];
-        UUID creator = player.getUniqueId();
-
-        JClientGuildOutput.create_guild(guildName, creator);
-
+        UUID actor = player.getUniqueId();
+        JClientGuildOutput.list_all_guilds(actor, page);
         return true;
     }
 }

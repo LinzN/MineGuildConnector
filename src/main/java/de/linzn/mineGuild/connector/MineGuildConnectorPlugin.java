@@ -83,7 +83,7 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
     }
 
     private void registerListeners() {
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.registerIncomingDataListener("mineGuild", new JClientGuildListener());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.registerIncomingDataListener("mineGuild_default", new JClientGuildListener());
     }
 
 }

@@ -32,7 +32,7 @@ public class JClientGuildOutput {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
     public static void remove_guild(UUID actor) {
@@ -44,7 +44,7 @@ public class JClientGuildOutput {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
     public static void info_guild(UUID actor, String guildArg) {
@@ -57,7 +57,7 @@ public class JClientGuildOutput {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
     public static void members_guild(UUID actor, String guildArg) {
@@ -70,7 +70,7 @@ public class JClientGuildOutput {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
     public static void invite_to_guild(UUID actor, String invitedName) {
@@ -84,7 +84,7 @@ public class JClientGuildOutput {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
     public static void accept_invite_guild(UUID actor) {
@@ -97,7 +97,7 @@ public class JClientGuildOutput {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
     public static void deny_invite_guild(UUID actor) {
@@ -110,7 +110,58 @@ public class JClientGuildOutput {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild", byteArrayOutputStream.toByteArray());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
+    }
+
+    public static void kick_from_guild(UUID actor, String kickedPlayer) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_kick_from_guild");
+            dataOutputStream.writeUTF(actor.toString());
+            dataOutputStream.writeUTF(kickedPlayer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
+    }
+
+    public static void leave_from_guild(UUID actor) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_leave_from_guild");
+            dataOutputStream.writeUTF(actor.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
+    }
+
+    public static void guild_spawn_guild(UUID actor) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_send_spawn_guild");
+            dataOutputStream.writeUTF(actor.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
+    }
+
+    public static void list_all_guilds(UUID actor, int page) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_list_all_guild");
+            dataOutputStream.writeUTF(actor.toString());
+            dataOutputStream.writeInt(page);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
 }

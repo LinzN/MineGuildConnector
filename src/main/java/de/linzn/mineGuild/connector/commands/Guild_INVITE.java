@@ -43,7 +43,7 @@ public class Guild_INVITE implements ICommand {
             return true;
         }
         if (args.length < 2) {
-            player.sendMessage("/guild invite <PlayerName>");
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild invite <PlayerName>"));
             return true;
         }
 

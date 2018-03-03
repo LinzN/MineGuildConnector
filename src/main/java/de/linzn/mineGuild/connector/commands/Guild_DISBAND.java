@@ -20,12 +20,12 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class Guild_REMOVE implements ICommand {
+public class Guild_DISBAND implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_REMOVE(MineGuildConnectorPlugin plugin, String permission) {
+    public Guild_DISBAND(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
