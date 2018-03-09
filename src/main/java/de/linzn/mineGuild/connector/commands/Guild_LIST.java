@@ -44,6 +44,7 @@ public class Guild_LIST implements ICommand {
         }
         int page = 1;
         if (args.length > 1) {
+            // todo check if is integer
             page = Integer.parseInt(args[1]);
         }
 

@@ -69,8 +69,8 @@ public class Guild_HELP implements ICommand {
         }
 
         player.sendMessage("§e§n§6§l-===============[§2§lMineGuild§r§6§l]===============-");
-        player.sendMessage("§2 Gildeninformationen: §e/guild info [Gilde]");
-        player.sendMessage("§2 Gildenmitglieder anzeigen: §e/guild members [Gilde]");
+        player.sendMessage("§2 Gildeninformationen: §e/guild info <Gilde>");
+        player.sendMessage("§2 Gildenmitglieder anzeigen: §e/guild members <Gilde> <Seite>");
         player.sendMessage("§6§lÜbersicht der Gilden Hilfebereiche:");
         player.sendMessage(" §2Allgemeine Hilfe §a/guild help 1 - 5");
         player.sendMessage(" §2Gildeneinstellungen Hilfe §4/guild edit help");

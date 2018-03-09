@@ -43,12 +43,17 @@ public class Guild_MEMBERS implements ICommand {
             return true;
         }
         String guildArg = "null";
+        int page = 1;
         if (args.length > 1) {
             guildArg = args[1];
+            if (args.length > 2) {
+                // todo check if is integer
+                page = Integer.parseInt(args[2]);
+            }
         }
 
         UUID actor = player.getUniqueId();
-        JClientGuildOutput.members_guild(actor, guildArg);
+        JClientGuildOutput.members_guild(actor, guildArg, page);
         return true;
     }
 }

@@ -60,13 +60,14 @@ public class JClientGuildOutput {
         MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
-    public static void members_guild(UUID actor, String guildArg) {
+    public static void members_guild(UUID actor, String guildArg, int page) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
         try {
             dataOutputStream.writeUTF("guild_info_guild_members");
             dataOutputStream.writeUTF(actor.toString());
             dataOutputStream.writeUTF(guildArg);
+            dataOutputStream.writeInt(page);
         } catch (IOException e) {
             e.printStackTrace();
         }
