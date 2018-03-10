@@ -9,9 +9,10 @@
  *
  */
 
-package de.linzn.mineGuild.connector.commands;
+package de.linzn.mineGuild.connector.commands.special;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
+import de.linzn.mineGuild.connector.commands.ICommand;
 import de.linzn.mineGuild.connector.socket.JClientGuildOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.Command;
@@ -20,12 +21,12 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class Guild_SPAWN implements ICommand {
+public class Guild_WITHDRAW implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_SPAWN(MineGuildConnectorPlugin plugin, String permission) {
+    public Guild_WITHDRAW(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -43,8 +44,20 @@ public class Guild_SPAWN implements ICommand {
             return true;
         }
 
+        if (args.length < 2) {
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild withdraw <Amount>"));
+            return true;
+        }
+        double amount;
+        try {
+            amount = Double.parseDouble(args[1]);
+        } catch (Exception e) {
+            player.sendMessage(LanguageDB.NOT_A_NUMBER);
+            return true;
+        }
+
         UUID actor = player.getUniqueId();
-        JClientGuildOutput.guild_spawn_guild(actor);
+        JClientGuildOutput.player_withdraw_guild(actor, amount);
         return true;
     }
 }

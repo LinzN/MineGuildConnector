@@ -44,8 +44,12 @@ public class Guild_LIST implements ICommand {
         }
         int page = 1;
         if (args.length > 1) {
-            // todo check if is integer
-            page = Integer.parseInt(args[1]);
+            try {
+                page = Integer.parseInt(args[1]);
+            } catch (Exception e) {
+                player.sendMessage(LanguageDB.NOT_A_NUMBER);
+                return true;
+            }
         }
 
         UUID actor = player.getUniqueId();

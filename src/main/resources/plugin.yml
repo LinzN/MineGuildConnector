@@ -9,10 +9,48 @@ commands:
   guild:
     description: Guild Command
 permissions:
-    mineGuild.team:
-        description: Alle Team Permissions
+    mineguild.all:
+        description: Alle Guild permissions
         children:
-            mineSuite.guild.user: true
-    mineGuild.withdraw:
-        description: tta
+            mineSuite.help: true
+            mineSuite.create: true
+            mineSuite.disband: true
+            mineSuite.info: true
+            mineSuite.members: true
+            mineSuite.accept: true
+            mineSuite.deny: true
+            mineSuite.invite: true
+            mineSuite.leave: true
+            mineSuite.kick: true
+            mineSuite.list: true
+            mineSuite.home: true
+            mineSuite.deposit: true
+            mineSuite.withdraw: true
+    mineguild.help:
+        default: op
+    mineguild.create:
+        default: op
+    mineguild.disband:
+        default: op
+    mineguild.info:
+        default: op
+    mineguild.members:
+        default: op
+    mineguild.accept:
+        default: op
+    mineguild.deny:
+        default: op
+    mineguild.invite:
+        default: op
+    mineguild.leave:
+        default: op
+    mineguild.kick:
+        default: op
+    mineguild.list:
+        default: op
+    mineguild.home:
+        default: op
+    mineguild.deposit:
+        default: op
+    mineguild.withdraw:
         default: op

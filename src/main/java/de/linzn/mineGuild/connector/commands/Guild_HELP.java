@@ -44,16 +44,16 @@ public class Guild_HELP implements ICommand {
             if (args[1].equalsIgnoreCase("2")) {
                 player.sendMessage(("§6§lAllgemeine Hilfe: "));
                 player.sendMessage(" §2Gilde erstellen: §e/guild create <Gildenname>");
-                player.sendMessage(" §2Gilde auflösen: §4/guild disband");
+                player.sendMessage(" §2Gilde auflösen: §e/guild disband");
                 player.sendMessage(" §2Mitglied einladen: §e/guild invite <Spielername>");
-                player.sendMessage(" §2Mitglied entfernen: §4/guild Kick <Spielername>");
-                player.sendMessage(" §2Alle Gilden auflisten: §4/guild list <Seite>");
+                player.sendMessage(" §2Mitglied entfernen: §e/guild kick <Spielername>");
+                player.sendMessage(" §2Alle Gilden auflisten: §e/guild list <Seite>");
                 return true;
             } else if (args[1].equalsIgnoreCase("3")) {
                 player.sendMessage("§6§lAllgemeine Hilfe: ");
                 player.sendMessage(" §2Gildeneinladung annehmen: §e/guild accept");
                 player.sendMessage(" §2Gildeneinladung ablehnen: §e/guild deny");
-                player.sendMessage(" §2Zum Gildenspawn teleportieren: §4/guild spawn");
+                player.sendMessage(" §2Zum Gildenhome teleportieren: §4/guild home");
                 player.sendMessage(" §2Mines auf Gildenkonto einzahlen: §4/guild deposit <Wert>");
                 player.sendMessage(" §2Mines von Gildenkonto abheben: §4/guild withdraw <Wert>");
                 return true;

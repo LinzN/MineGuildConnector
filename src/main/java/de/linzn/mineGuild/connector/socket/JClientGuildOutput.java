@@ -165,4 +165,30 @@ public class JClientGuildOutput {
         MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
+    public static void player_deposit_guild(UUID actor, double amount) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_deposit_to_guild");
+            dataOutputStream.writeUTF(actor.toString());
+            dataOutputStream.writeDouble(amount);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
+    }
+
+    public static void player_withdraw_guild(UUID actor, double amount) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_withdraw_from_guild");
+            dataOutputStream.writeUTF(actor.toString());
+            dataOutputStream.writeDouble(amount);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
+    }
+
 }
