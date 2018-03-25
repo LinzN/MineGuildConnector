@@ -12,6 +12,10 @@
 package de.linzn.mineGuild.connector.socket;
 
 import de.linzn.jSocket.core.IncomingDataListener;
+import de.linzn.mineGuild.connector.manager.GuildConnectorManager;
+import de.linzn.mineGuild.connector.objects.Guild;
+import de.linzn.mineGuild.connector.objects.GuildPlayer;
+import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -28,13 +32,29 @@ public class JClientGuildListener implements IncomingDataListener {
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(bytes));
         String subChannel;
         try {
+            String serverName = in.readUTF();
 
+            if (!serverName.equalsIgnoreCase(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.BUNGEE_SERVER_NAME) && !serverName.equalsIgnoreCase("all")) {
+                return;
+            }
             subChannel = in.readUTF();
 
-            if (subChannel.equalsIgnoreCase("test")) {
+            if (subChannel.equalsIgnoreCase("guild_set_guild_data")) {
                 UUID guildUUID = UUID.fromString(in.readUTF());
                 String guildName = in.readUTF();
-                String guildMaster = in.readUTF();
+                int level = in.readInt();
+                Guild guild = new Guild(guildName, guildUUID);
+                guild.setLevel(level);
+                GuildConnectorManager.set_guild_data(guild);
+                return;
+            }
+
+            if (subChannel.equalsIgnoreCase("guild_set_guildplayer_data")) {
+                UUID guildUUID = UUID.fromString(in.readUTF());
+                UUID playerUUID = UUID.fromString(in.readUTF());
+                GuildPlayer guildPlayer = new GuildPlayer(playerUUID);
+
+                GuildConnectorManager.set_guildplayer_data(guildUUID, guildPlayer);
                 return;
             }
 

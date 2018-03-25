@@ -11,5 +11,23 @@
 
 package de.linzn.mineGuild.connector.manager;
 
+import de.linzn.mineGuild.connector.GuildDatabase;
+import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
+import de.linzn.mineGuild.connector.objects.Guild;
+import de.linzn.mineGuild.connector.objects.GuildPlayer;
+
+import java.util.UUID;
+
 public class GuildConnectorManager {
+
+    public static void set_guild_data(Guild guild) {
+        MineGuildConnectorPlugin.inst().getLogger().info("Set new guild " + guild.guildName);
+        GuildDatabase.addGuild(guild);
+    }
+
+    public static void set_guildplayer_data(UUID guildUUID, GuildPlayer guildPlayer) {
+        Guild guild = GuildDatabase.getGuild(guildUUID);
+        MineGuildConnectorPlugin.inst().getLogger().info("Set new guildplayer " + guildPlayer.getUUID().toString() + "to guild " + guild.guildName);
+        guild.setGuildPlayer(guildPlayer);
+    }
 }

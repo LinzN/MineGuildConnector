@@ -13,6 +13,7 @@ package de.linzn.mineGuild.connector;
 
 import de.linzn.mineGuild.connector.commands.GuildCommand;
 import de.linzn.mineGuild.connector.socket.JClientGuildListener;
+import de.linzn.mineGuild.connector.socket.JClientGuildOutput;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -48,6 +49,7 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
         loadCommands();
         registerListeners();
         setupChat();
+        this.getServer().getScheduler().runTaskLaterAsynchronously(this, () -> JClientGuildOutput.request_all_guild_data(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.BUNGEE_SERVER_NAME), 20);
     }
 
     @Override
@@ -83,7 +85,7 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
     }
 
     private void registerListeners() {
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.registerIncomingDataListener("mineGuild_default", new JClientGuildListener());
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.registerIncomingDataListener("mineGuild_update", new JClientGuildListener());
     }
 
 }

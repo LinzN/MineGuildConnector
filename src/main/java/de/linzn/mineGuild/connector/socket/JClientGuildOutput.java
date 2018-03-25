@@ -191,4 +191,16 @@ public class JClientGuildOutput {
         MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_default", byteArrayOutputStream.toByteArray());
     }
 
+    public static void request_all_guild_data(String serverName) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("request_all_guild_data");
+            dataOutputStream.writeUTF(serverName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput("mineGuild_update", byteArrayOutputStream.toByteArray());
+    }
+
 }
