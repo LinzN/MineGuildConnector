@@ -16,14 +16,12 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class Guild {
-    public String guildName;
     public UUID guildUUID;
     public int guildLevel;
     public HashSet<GuildPlayer> guildPlayers;
 
 
-    public Guild(String guildName, UUID guildUUID) {
-        this.guildName = guildName;
+    public Guild(UUID guildUUID) {
         this.guildUUID = guildUUID;
         this.guildLevel = 1;
         this.guildPlayers = new HashSet<>();
@@ -36,10 +34,6 @@ public class Guild {
 
     public void unsetGuildPlayer(GuildPlayer guildPlayer) {
         this.guildPlayers.remove(guildPlayer);
-    }
-
-    public void setGuildName(String guildName) {
-        this.guildName = guildName;
     }
 
     public void setLevel(int level) {

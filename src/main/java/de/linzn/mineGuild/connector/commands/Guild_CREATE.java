@@ -12,7 +12,7 @@
 package de.linzn.mineGuild.connector.commands;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
-import de.linzn.mineGuild.connector.socket.JClientGuildOutput;
+import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -50,7 +50,7 @@ public class Guild_CREATE implements ICommand {
         String guildName = args[1];
         UUID creator = player.getUniqueId();
 
-        JClientGuildOutput.create_guild(guildName, creator);
+        JClientGuildCommandOutput.create_guild(guildName, creator);
 
         return true;
     }

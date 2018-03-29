@@ -13,9 +13,11 @@ package de.linzn.mineGuild.connector;
 
 import de.linzn.mineGuild.connector.objects.Guild;
 import de.linzn.mineGuild.connector.objects.GuildPlayer;
+import org.bukkit.Bukkit;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.UUID;
 
 public class GuildDatabase {
@@ -37,29 +39,26 @@ public class GuildDatabase {
         return guilds.getOrDefault(uuid, null);
     }
 
-    public static Guild getGuild(String gName) {
+
+    public static HashSet<GuildPlayer> getAllGuildPlayers(boolean online) {
+        HashSet<GuildPlayer> guildPlayers = new HashSet<>();
         for (Guild guild : guilds.values()) {
-            if (guild.guildName.equalsIgnoreCase(gName)) {
-                return guild;
+            for (GuildPlayer guildPlayer : guild.guildPlayers) {
+                if (online) {
+                    if (Bukkit.getPlayer(guildPlayer.getUUID()).isOnline()) {
+                        guildPlayers.add(guildPlayer);
+                    }
+                } else {
+                    guildPlayers.add(guildPlayer);
+                }
             }
         }
-        return null;
-
+        return guildPlayers;
     }
 
     public static Collection<Guild> getGuilds() {
         return guilds.values();
     }
-
-    public static boolean isGuild(String gName) {
-        for (Guild guild : guilds.values()) {
-            if (guild.guildName.equalsIgnoreCase(gName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     public static void addGuild(Guild guild) {
         guilds.put(guild.guildUUID, guild);

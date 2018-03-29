@@ -11,9 +11,23 @@
 
 package de.linzn.mineGuild.connector;
 
+import de.linzn.jSocket.client.JClientConnection;
 import de.linzn.mineGuild.connector.commands.GuildCommand;
-import de.linzn.mineGuild.connector.socket.JClientGuildListener;
-import de.linzn.mineGuild.connector.socket.JClientGuildOutput;
+import de.linzn.mineGuild.connector.listener.JobsRebornListener;
+import de.linzn.mineGuild.connector.listener.McmmoListener;
+import de.linzn.mineGuild.connector.socket.checkStream.JClientGuildCheckListener;
+import de.linzn.mineGuild.connector.socket.checkStream.JClientGuildCheckOutput;
+import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandListener;
+import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
+import de.linzn.mineGuild.connector.socket.controlStream.JClientGuildControlListener;
+import de.linzn.mineGuild.connector.socket.controlStream.JClientGuildControlOutput;
+import de.linzn.mineGuild.connector.socket.editStream.JClientGuildEditListener;
+import de.linzn.mineGuild.connector.socket.editStream.JClientGuildEditOutput;
+import de.linzn.mineGuild.connector.socket.rangStream.JClientGuildRangListener;
+import de.linzn.mineGuild.connector.socket.rangStream.JClientGuildRangOutput;
+import de.linzn.mineGuild.connector.socket.updateStream.JClientGuildUpdateListener;
+import de.linzn.mineGuild.connector.socket.updateStream.JClientGuildUpdateOutput;
+import de.linzn.mineGuild.connector.utils.GuildUpdater;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -24,6 +38,7 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
     private static MineGuildConnectorPlugin inst;
     private Economy econ = null;
     private Chat chat = null;
+    private GuildUpdater guildUpdater = null;
 
     public static Economy getEconomy() {
         return inst().econ;
@@ -49,7 +64,8 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
         loadCommands();
         registerListeners();
         setupChat();
-        this.getServer().getScheduler().runTaskLaterAsynchronously(this, () -> JClientGuildOutput.request_all_guild_data(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.BUNGEE_SERVER_NAME), 20);
+        this.guildUpdater = new GuildUpdater();
+        this.getServer().getScheduler().runTaskLaterAsynchronously(this, () -> JClientGuildControlOutput.request_all_guild_data(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.BUNGEE_SERVER_NAME), 20);
     }
 
     @Override
@@ -85,7 +101,18 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
     }
 
     private void registerListeners() {
-        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.registerIncomingDataListener("mineGuild_update", new JClientGuildListener());
+        JClientConnection jClientConnection = MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1;
+        jClientConnection.registerIncomingDataListener(JClientGuildCommandOutput.headerChannel, new JClientGuildCommandListener());
+        jClientConnection.registerIncomingDataListener(JClientGuildEditOutput.headerChannel, new JClientGuildEditListener());
+        jClientConnection.registerIncomingDataListener(JClientGuildRangOutput.headerChannel, new JClientGuildRangListener());
+        jClientConnection.registerIncomingDataListener(JClientGuildUpdateOutput.headerChannel, new JClientGuildUpdateListener());
+        jClientConnection.registerIncomingDataListener(JClientGuildControlOutput.headerChannel, new JClientGuildControlListener());
+        jClientConnection.registerIncomingDataListener(JClientGuildCheckOutput.headerChannel, new JClientGuildCheckListener());
+        this.getServer().getPluginManager().registerEvents(new McmmoListener(), this);
+        this.getServer().getPluginManager().registerEvents(new JobsRebornListener(), this);
     }
 
+    public GuildUpdater getGuildUpdater() {
+        return guildUpdater;
+    }
 }

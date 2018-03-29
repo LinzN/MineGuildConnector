@@ -13,7 +13,7 @@ package de.linzn.mineGuild.connector.commands.special;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.commands.ICommand;
-import de.linzn.mineGuild.connector.socket.JClientGuildOutput;
+import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -57,7 +57,7 @@ public class Guild_WITHDRAW implements ICommand {
         }
 
         UUID actor = player.getUniqueId();
-        JClientGuildOutput.player_withdraw_guild(actor, amount);
+        JClientGuildCommandOutput.player_withdraw_guild(actor, amount);
         return true;
     }
 }

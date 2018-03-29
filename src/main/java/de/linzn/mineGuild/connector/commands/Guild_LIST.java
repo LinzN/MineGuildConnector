@@ -12,7 +12,7 @@
 package de.linzn.mineGuild.connector.commands;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
-import de.linzn.mineGuild.connector.socket.JClientGuildOutput;
+import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -53,7 +53,7 @@ public class Guild_LIST implements ICommand {
         }
 
         UUID actor = player.getUniqueId();
-        JClientGuildOutput.list_all_guilds(actor, page);
+        JClientGuildCommandOutput.list_all_guilds(actor, page);
         return true;
     }
 }

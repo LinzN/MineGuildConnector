@@ -9,12 +9,9 @@
  *
  */
 
-package de.linzn.mineGuild.connector.socket;
+package de.linzn.mineGuild.connector.socket.checkStream;
 
 import de.linzn.jSocket.core.IncomingDataListener;
-import de.linzn.mineGuild.connector.manager.GuildConnectorManager;
-import de.linzn.mineGuild.connector.objects.Guild;
-import de.linzn.mineGuild.connector.objects.GuildPlayer;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 
 import java.io.ByteArrayInputStream;
@@ -23,7 +20,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 
-public class JClientGuildListener implements IncomingDataListener {
+public class JClientGuildCheckListener implements IncomingDataListener {
 
 
     @Override
@@ -39,25 +36,10 @@ public class JClientGuildListener implements IncomingDataListener {
             }
             subChannel = in.readUTF();
 
-            if (subChannel.equalsIgnoreCase("guild_set_guild_data")) {
+            if (subChannel.equalsIgnoreCase("test1")) {
                 UUID guildUUID = UUID.fromString(in.readUTF());
-                String guildName = in.readUTF();
-                int level = in.readInt();
-                Guild guild = new Guild(guildName, guildUUID);
-                guild.setLevel(level);
-                GuildConnectorManager.set_guild_data(guild);
                 return;
             }
-
-            if (subChannel.equalsIgnoreCase("guild_set_guildplayer_data")) {
-                UUID guildUUID = UUID.fromString(in.readUTF());
-                UUID playerUUID = UUID.fromString(in.readUTF());
-                GuildPlayer guildPlayer = new GuildPlayer(playerUUID);
-
-                GuildConnectorManager.set_guildplayer_data(guildUUID, guildPlayer);
-                return;
-            }
-
 
         } catch (IOException e1) {
             e1.printStackTrace();

@@ -12,20 +12,20 @@ permissions:
     mineguild.all:
         description: Alle Guild permissions
         children:
-            mineSuite.help: true
-            mineSuite.create: true
-            mineSuite.disband: true
-            mineSuite.info: true
-            mineSuite.members: true
-            mineSuite.accept: true
-            mineSuite.deny: true
-            mineSuite.invite: true
-            mineSuite.leave: true
-            mineSuite.kick: true
-            mineSuite.list: true
-            mineSuite.home: true
-            mineSuite.deposit: true
-            mineSuite.withdraw: true
+            mineguild.help: true
+            mineguild.create: true
+            mineguild.disband: true
+            mineguild.info: true
+            mineguild.members: true
+            mineguild.accept: true
+            mineguild.deny: true
+            mineguild.invite: true
+            mineguild.leave: true
+            mineguild.kick: true
+            mineguild.list: true
+            mineguild.home: true
+            mineguild.deposit: true
+            mineguild.withdraw: true
     mineguild.help:
         default: op
     mineguild.create:
