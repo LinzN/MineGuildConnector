@@ -45,7 +45,7 @@ public class GuildDatabase {
         for (Guild guild : guilds.values()) {
             for (GuildPlayer guildPlayer : guild.guildPlayers) {
                 if (online) {
-                    if (Bukkit.getPlayer(guildPlayer.getUUID()).isOnline()) {
+                    if (Bukkit.getPlayer(guildPlayer.getUUID()) != null) {
                         guildPlayers.add(guildPlayer);
                     }
                 } else {

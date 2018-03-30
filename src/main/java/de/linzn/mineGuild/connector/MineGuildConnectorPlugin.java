@@ -12,6 +12,7 @@
 package de.linzn.mineGuild.connector;
 
 import de.linzn.jSocket.client.JClientConnection;
+import de.linzn.jSocket.core.IncomingDataListener;
 import de.linzn.mineGuild.connector.commands.GuildCommand;
 import de.linzn.mineGuild.connector.listener.JobsRebornListener;
 import de.linzn.mineGuild.connector.listener.McmmoListener;
@@ -34,11 +35,14 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashSet;
+
 public class MineGuildConnectorPlugin extends JavaPlugin {
     private static MineGuildConnectorPlugin inst;
     private Economy econ = null;
     private Chat chat = null;
     private GuildUpdater guildUpdater = null;
+    private HashSet<IncomingDataListener> listenerList;
 
     public static Economy getEconomy() {
         return inst().econ;
@@ -55,6 +59,7 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         inst = this;
+        this.listenerList = new HashSet<>();
         if (!setupEconomy()) {
             this.getLogger().warning(
                     String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -70,6 +75,8 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        this.unregisterListeners();
+        this.listenerList.clear();
     }
 
     private boolean setupEconomy() {
@@ -101,15 +108,36 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
     }
 
     private void registerListeners() {
+        JClientGuildCommandListener jClientGuildCommandListener = new JClientGuildCommandListener();
+        JClientGuildEditListener jClientGuildEditListener = new JClientGuildEditListener();
+        JClientGuildRangListener jClientGuildRangListener = new JClientGuildRangListener();
+        JClientGuildUpdateListener jClientGuildUpdateListener = new JClientGuildUpdateListener();
+        JClientGuildControlListener jClientGuildControlListener = new JClientGuildControlListener();
+        JClientGuildCheckListener jClientGuildCheckListener = new JClientGuildCheckListener();
+
+        this.listenerList.add(jClientGuildCommandListener);
+        this.listenerList.add(jClientGuildEditListener);
+        this.listenerList.add(jClientGuildRangListener);
+        this.listenerList.add(jClientGuildUpdateListener);
+        this.listenerList.add(jClientGuildControlListener);
+        this.listenerList.add(jClientGuildCheckListener);
+
         JClientConnection jClientConnection = MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1;
-        jClientConnection.registerIncomingDataListener(JClientGuildCommandOutput.headerChannel, new JClientGuildCommandListener());
-        jClientConnection.registerIncomingDataListener(JClientGuildEditOutput.headerChannel, new JClientGuildEditListener());
-        jClientConnection.registerIncomingDataListener(JClientGuildRangOutput.headerChannel, new JClientGuildRangListener());
-        jClientConnection.registerIncomingDataListener(JClientGuildUpdateOutput.headerChannel, new JClientGuildUpdateListener());
-        jClientConnection.registerIncomingDataListener(JClientGuildControlOutput.headerChannel, new JClientGuildControlListener());
-        jClientConnection.registerIncomingDataListener(JClientGuildCheckOutput.headerChannel, new JClientGuildCheckListener());
+        jClientConnection.registerIncomingDataListener(JClientGuildCommandOutput.headerChannel, jClientGuildCommandListener);
+        jClientConnection.registerIncomingDataListener(JClientGuildEditOutput.headerChannel, jClientGuildEditListener);
+        jClientConnection.registerIncomingDataListener(JClientGuildRangOutput.headerChannel, jClientGuildRangListener);
+        jClientConnection.registerIncomingDataListener(JClientGuildUpdateOutput.headerChannel, jClientGuildUpdateListener);
+        jClientConnection.registerIncomingDataListener(JClientGuildControlOutput.headerChannel, jClientGuildControlListener);
+        jClientConnection.registerIncomingDataListener(JClientGuildCheckOutput.headerChannel, jClientGuildCheckListener);
+
         this.getServer().getPluginManager().registerEvents(new McmmoListener(), this);
         this.getServer().getPluginManager().registerEvents(new JobsRebornListener(), this);
+    }
+
+    private void unregisterListeners() {
+        for (IncomingDataListener incomingDataListener : this.listenerList) {
+            MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.unregisterIncomingDataListener(incomingDataListener);
+        }
     }
 
     public GuildUpdater getGuildUpdater() {
