@@ -13,6 +13,8 @@ package de.linzn.mineGuild.connector.commands;
 
 import com.google.common.collect.Maps;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
+import de.linzn.mineGuild.connector.commands.edit.GuildEditCommand;
+import de.linzn.mineGuild.connector.commands.rang.GuildRangCommand;
 import de.linzn.mineGuild.connector.commands.special.Guild_DEPOSIT;
 import de.linzn.mineGuild.connector.commands.special.Guild_WITHDRAW;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
@@ -42,10 +44,10 @@ public class GuildCommand implements CommandExecutor {
     public boolean onCommand(final CommandSender sender, final Command cmd, String label, final String[] args) {
         cmdThread.submit(() -> {
             if (args.length == 0) {
-                getCmdMap().get("help").runCmd(cmd, sender, args);
+                getCmdMap().get("help").runCmd(sender, args);
             } else if (getCmdMap().containsKey(args[0])) {
                 String command = args[0];
-                if (!getCmdMap().get(command).runCmd(cmd, sender, args)) {
+                if (!getCmdMap().get(command).runCmd(sender, args)) {
                     sender.sendMessage(LanguageDB.NO_COMMAND.replace("{command}", "/guild help"));
                 }
 
@@ -77,6 +79,10 @@ public class GuildCommand implements CommandExecutor {
             this.cmdMap.put("home", new Guild_HOME(this.plugin, "mineguild.home"));
             this.cmdMap.put("deposit", new Guild_DEPOSIT(this.plugin, "mineguild.deposit"));
             this.cmdMap.put("withdraw", new Guild_WITHDRAW(this.plugin, "mineguild.withdraw"));
+
+
+            this.cmdMap.put("edit", new GuildEditCommand(this.plugin));
+            this.cmdMap.put("rang", new GuildRangCommand(this.plugin));
 
             this.isLoaded = true;
         } catch (Exception e) {

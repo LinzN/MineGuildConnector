@@ -9,22 +9,23 @@
  *
  */
 
-package de.linzn.mineGuild.connector.commands;
+package de.linzn.mineGuild.connector.commands.edit;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
-import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
+import de.linzn.mineGuild.connector.commands.ICommand;
+import de.linzn.mineGuild.connector.socket.editStream.JClientGuildEditOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class Guild_MEMBERS implements ICommand {
+public class Edit_GUILDMASTER implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_MEMBERS(MineGuildConnectorPlugin plugin, String permission) {
+    public Edit_GUILDMASTER(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -41,22 +42,18 @@ public class Guild_MEMBERS implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        String guildArg = "null";
-        int page = 1;
-        if (args.length > 1) {
-            guildArg = args[1];
-            if (args.length > 2) {
-                try {
-                    page = Integer.parseInt(args[2]);
-                } catch (Exception e) {
-                    player.sendMessage(LanguageDB.NOT_A_NUMBER);
-                    return true;
-                }
-            }
+
+        if (args.length < 2) {
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit guildmaster <Spielername>"));
+            return true;
         }
 
+        String playerName = args[1];
         UUID actor = player.getUniqueId();
-        JClientGuildCommandOutput.members_guild(actor, guildArg, page);
+
+        JClientGuildEditOutput.set_guild_master(actor, playerName);
+
+
         return true;
     }
 }

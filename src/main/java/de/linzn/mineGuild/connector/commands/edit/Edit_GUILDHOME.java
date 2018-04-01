@@ -9,27 +9,30 @@
  *
  */
 
-package de.linzn.mineGuild.connector.commands.rangs;
+package de.linzn.mineGuild.connector.commands.edit;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.commands.ICommand;
+import de.linzn.mineGuild.connector.socket.editStream.JClientGuildEditOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
-import org.bukkit.command.Command;
+import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class Guild_Rangs_HELP implements ICommand {
+import java.util.UUID;
+
+public class Edit_GUILDHOME implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_Rangs_HELP(MineGuildConnectorPlugin plugin, String permission) {
+    public Edit_GUILDHOME(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
 
     @Override
-    public boolean runCmd(Command cmd, CommandSender sender, String[] args) {
+    public boolean runCmd(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(LanguageDB.NO_CONSOLE);
             return true;
@@ -40,21 +43,19 @@ public class Guild_Rangs_HELP implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        if (args.length >= 3) {
 
-            if (args[2].equalsIgnoreCase("2")) {
-                player.sendMessage(("§6§lAllgemeine Ranghilfe: "));
-                player.sendMessage(" §2Gilde erstellen: §e/guild create <Gildenname>");
-                return true;
-            }
+        if (args.length < 2) {
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit guildhome confirm"));
+            return true;
         }
-        player.sendMessage("§e§n§6§l-============[§2§lMineGuild Rangs§r§6§l]============-");
-        player.sendMessage("§2 Rang Infos: §4/guild rangs show [Rang]");
-        player.sendMessage("§2 Mitgliederrang anzeigen: §4/guild rangs player [Spieler]");
-        player.sendMessage("§6§lÜbersicht der Gilden Hilfebereiche:");
-        player.sendMessage(" §2Allgemeine Ranghilfe §a/guild rangs help 1 - 2");
+
+
+        UUID actor = player.getUniqueId();
+        Location location = player.getLocation();
+
+        JClientGuildEditOutput.set_guild_home(actor, location);
+
+
         return true;
-
-
     }
 }

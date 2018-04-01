@@ -14,7 +14,7 @@ package de.linzn.mineGuild.connector.commands;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
-import org.bukkit.command.Command;
+import de.linzn.mineGuild.connector.utils.PluginUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,7 +31,7 @@ public class Guild_CREATE implements ICommand {
     }
 
     @Override
-    public boolean runCmd(Command cmd, CommandSender sender, String[] args) {
+    public boolean runCmd(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(LanguageDB.NO_CONSOLE);
             return true;
@@ -49,6 +49,11 @@ public class Guild_CREATE implements ICommand {
 
         String guildName = args[1];
         UUID creator = player.getUniqueId();
+
+        if (!PluginUtil.is_valid_guild_name(guildName)) {
+            sender.sendMessage(LanguageDB.INVALID_GUILD_NAME);
+            return true;
+        }
 
         JClientGuildCommandOutput.create_guild(guildName, creator);
 

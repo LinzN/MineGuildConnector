@@ -14,7 +14,6 @@ package de.linzn.mineGuild.connector.commands;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -31,7 +30,7 @@ public class Guild_LEAVE implements ICommand {
     }
 
     @Override
-    public boolean runCmd(Command cmd, CommandSender sender, String[] args) {
+    public boolean runCmd(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(LanguageDB.NO_CONSOLE);
             return true;

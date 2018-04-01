@@ -9,22 +9,24 @@
  *
  */
 
-package de.linzn.mineGuild.connector.commands;
+package de.linzn.mineGuild.connector.commands.edit;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
-import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
+import de.linzn.mineGuild.connector.commands.ICommand;
+import de.linzn.mineGuild.connector.socket.editStream.JClientGuildEditOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
+import de.linzn.mineGuild.connector.utils.PluginUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class Guild_MEMBERS implements ICommand {
+public class Edit_GUILDNAME implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_MEMBERS(MineGuildConnectorPlugin plugin, String permission) {
+    public Edit_GUILDNAME(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -41,22 +43,23 @@ public class Guild_MEMBERS implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        String guildArg = "null";
-        int page = 1;
-        if (args.length > 1) {
-            guildArg = args[1];
-            if (args.length > 2) {
-                try {
-                    page = Integer.parseInt(args[2]);
-                } catch (Exception e) {
-                    player.sendMessage(LanguageDB.NOT_A_NUMBER);
-                    return true;
-                }
-            }
+
+        if (args.length < 2) {
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit guildname <Gildenname>"));
+            return true;
         }
 
+        String guildName = args[1];
         UUID actor = player.getUniqueId();
-        JClientGuildCommandOutput.members_guild(actor, guildArg, page);
+
+        if (!PluginUtil.is_valid_guild_name(guildName)) {
+            sender.sendMessage(LanguageDB.INVALID_GUILD_NAME);
+            return true;
+        }
+
+        JClientGuildEditOutput.set_guild_name(actor, guildName);
+
+
         return true;
     }
 }

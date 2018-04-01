@@ -23,9 +23,10 @@ import java.util.UUID;
 
 public class GuildConnectorManager {
 
-    public static void add_guild(Guild guild) {
+    public static void add_guild(Guild guild, UUID creator) {
         GuildDatabase.addGuild(guild);
         MineGuildConnectorPlugin.inst().getLogger().info("Added new guild " + guild.guildUUID.toString());
+        add_guildplayer(guild.guildUUID, creator);
     }
 
     public static void remove_guild(UUID guildUUID) {

@@ -9,22 +9,20 @@
  *
  */
 
-package de.linzn.mineGuild.connector.commands;
+package de.linzn.mineGuild.connector.commands.edit;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
-import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
+import de.linzn.mineGuild.connector.commands.ICommand;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.UUID;
-
-public class Guild_MEMBERS implements ICommand {
+public class EDIT_HELP implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Guild_MEMBERS(MineGuildConnectorPlugin plugin, String permission) {
+    public EDIT_HELP(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -41,22 +39,21 @@ public class Guild_MEMBERS implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        String guildArg = "null";
-        int page = 1;
-        if (args.length > 1) {
-            guildArg = args[1];
-            if (args.length > 2) {
-                try {
-                    page = Integer.parseInt(args[2]);
-                } catch (Exception e) {
-                    player.sendMessage(LanguageDB.NOT_A_NUMBER);
-                    return true;
-                }
+        if (args.length >= 2) {
+            if (args[1].equalsIgnoreCase("2")) {
+                player.sendMessage(("§6§lGuild Edit: "));
+                player.sendMessage(" §2Gildennamen ändern: §e/guild edit guildname <Gildenname>");
+                player.sendMessage(" §2Gildenhome ändern: §e/guild edit guildhome confirm");
+                player.sendMessage(" §2Gildenmeister ändern: §e/guild edit guildmaster <Spielername>");
+                return true;
             }
         }
-
-        UUID actor = player.getUniqueId();
-        JClientGuildCommandOutput.members_guild(actor, guildArg, page);
+        player.sendMessage("§e§n§6§l-============[§2§lMineGuild Edit§r§6§l]============-");
+        player.sendMessage("§2 Rang Infos: §4/guild edit help");
+        player.sendMessage("§6§lÜbersicht der Gilden-Edit Hilfebereiche:");
+        player.sendMessage(" §2Allgemeine Ranghilfe §a/guild edit help 1 - 2");
         return true;
+
+
     }
 }

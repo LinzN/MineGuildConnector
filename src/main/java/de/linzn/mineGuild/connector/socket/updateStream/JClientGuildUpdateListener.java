@@ -40,7 +40,6 @@ public class JClientGuildUpdateListener implements IncomingDataListener {
 
             if (subChannel.equalsIgnoreCase("guild_update_guild")) {
                 UUID guildUUID = UUID.fromString(in.readUTF());
-                String guildName = in.readUTF();
                 int level = in.readInt();
                 GuildConnectorManager.update_guild(guildUUID, level);
             }
@@ -51,12 +50,12 @@ public class JClientGuildUpdateListener implements IncomingDataListener {
             }
 
             if (subChannel.equalsIgnoreCase("guild_add_guild")) {
+                UUID actorUUID = UUID.fromString(in.readUTF());
                 UUID guildUUID = UUID.fromString(in.readUTF());
-                String guildName = in.readUTF();
                 int level = in.readInt();
                 Guild guild = new Guild(guildUUID);
                 guild.setLevel(level);
-                GuildConnectorManager.add_guild(guild);
+                GuildConnectorManager.add_guild(guild, actorUUID);
             }
 
             if (subChannel.equalsIgnoreCase("guild_remove_guildplayer")) {

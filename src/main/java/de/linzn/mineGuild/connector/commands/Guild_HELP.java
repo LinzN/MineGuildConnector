@@ -13,7 +13,6 @@ package de.linzn.mineGuild.connector.commands;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -28,7 +27,7 @@ public class Guild_HELP implements ICommand {
     }
 
     @Override
-    public boolean runCmd(Command cmd, CommandSender sender, String[] args) {
+    public boolean runCmd(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(LanguageDB.NO_CONSOLE);
             return true;
@@ -74,7 +73,7 @@ public class Guild_HELP implements ICommand {
         player.sendMessage("§6§lÜbersicht der Gilden Hilfebereiche:");
         player.sendMessage(" §2Allgemeine Hilfe §a/guild help 1 - 5");
         player.sendMessage(" §2Gildeneinstellungen Hilfe §4/guild edit help");
-        player.sendMessage(" §2Ränge Hilfe §4/guild rangs help");
+        player.sendMessage(" §2Ränge Hilfe §4/guild rang help");
         return true;
 
     }
