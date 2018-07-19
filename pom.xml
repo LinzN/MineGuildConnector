@@ -22,6 +22,10 @@
             <id>spigot-server-repo</id>
             <url>http://maven.elmakers.com/repository/</url>
         </repository>
+        <repository>
+            <id>enigmar-repo</id>
+            <url>https://repository.enigmar.de/</url>
+        </repository>
     </repositories>
     <dependencies>
         <!--Spigot API -->
@@ -56,13 +60,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <version>1.13-pre7-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.linzn</groupId>
             <artifactId>mineSuiteCore</artifactId>
-            <version>2.0.1</version>
+            <version>2.1.0</version>
         </dependency>
     </dependencies>
     <build>
@@ -101,7 +105,7 @@
         </plugins>
     </build>
     <artifactId>mineGuildConnector</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <groupId>de.linzn</groupId>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
