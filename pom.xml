@@ -15,14 +15,6 @@
     <name>mineGuildConnector</name>
     <repositories>
         <repository>
-            <id>vault-repo</id>
-            <url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
-        </repository>
-        <repository>
-            <id>spigot-server-repo</id>
-            <url>http://maven.elmakers.com/repository/</url>
-        </repository>
-        <repository>
             <id>enigmar-repo</id>
             <url>https://repository.enigmar.de/</url>
         </repository>
@@ -45,12 +37,10 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>de.jobs</groupId>
+            <groupId>Jobs</groupId>
             <artifactId>jobs</artifactId>
-            <version>1</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/lib/Jobs.jar</systemPath>
-            <optional>true</optional>
+            <version>4.7.2</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -62,11 +52,13 @@
             <groupId>de.linzn</groupId>
             <artifactId>mineSuiteCore</artifactId>
             <version>2.1.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.linzn</groupId>
             <artifactId>mineSuiteChat</artifactId>
             <version>2.1.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
