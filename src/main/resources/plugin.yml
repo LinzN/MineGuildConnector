@@ -30,6 +30,7 @@ permissions:
             mineguild.deposit: true
             mineguild.withdraw: true
             mineguild.chat: true
+            mineguild.setrang: true
     mineguild.help:
         default: op
     mineguild.create:
@@ -59,4 +60,6 @@ permissions:
     mineguild.withdraw:
         default: op
     mineguild.chat:
+        default: op
+    mineguild.setrang:
         default: op

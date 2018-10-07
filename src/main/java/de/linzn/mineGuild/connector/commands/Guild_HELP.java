@@ -52,17 +52,9 @@ public class Guild_HELP implements ICommand {
                 player.sendMessage("§6§lAllgemeine Hilfe: ");
                 player.sendMessage(" §2Gildeneinladung annehmen: §e/guild accept");
                 player.sendMessage(" §2Gildeneinladung ablehnen: §e/guild deny");
-                player.sendMessage(" §2Zum Gildenhome teleportieren: §4/guild home");
-                player.sendMessage(" §2Mines auf Gildenkonto einzahlen: §4/guild deposit <Wert>");
-                player.sendMessage(" §2Mines von Gildenkonto abheben: §4/guild withdraw <Wert>");
-                return true;
-            } else if (args[1].equalsIgnoreCase("4")) {
-                player.sendMessage("§6§lAllgemeine Hilfe: ");
-                player.sendMessage(" §2Placeholder: §4/guild placeholder");
-                return true;
-            } else if (args[1].equalsIgnoreCase("5")) {
-                player.sendMessage("§6§lAllgemeine Hilfe: ");
-                player.sendMessage(" §2Placeholder: §4/guild placeholder");
+                player.sendMessage(" §2Zum Gildenhome teleportieren: §e/guild home");
+                player.sendMessage(" §2Mines auf Gildenkonto einzahlen: §e/guild deposit <Wert>");
+                player.sendMessage(" §2Mines von Gildenkonto abheben: §e/guild withdraw <Wert>");
                 return true;
             }
         }
@@ -71,8 +63,8 @@ public class Guild_HELP implements ICommand {
         player.sendMessage("§2 Gildeninformationen: §e/guild info <Gilde>");
         player.sendMessage("§2 Gildenmitglieder anzeigen: §e/guild members <Gilde> <Seite>");
         player.sendMessage("§6§lÜbersicht der Gilden Hilfebereiche:");
-        player.sendMessage(" §2Allgemeine Hilfe §a/guild help 1 - 5");
-        player.sendMessage(" §2Gildeneinstellungen Hilfe §4/guild edit help");
+        player.sendMessage(" §2Allgemeine Hilfe §a/guild help 1 - 3");
+        player.sendMessage(" §2Gildeneinstellungen Hilfe §a/guild edit help");
         player.sendMessage(" §2Ränge Hilfe §4/guild rang help");
         return true;
 

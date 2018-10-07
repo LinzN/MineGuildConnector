@@ -50,6 +50,20 @@ public class JClientGuildEditOutput {
         MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput(headerChannel, byteArrayOutputStream.toByteArray());
     }
 
+    public static void set_player_rang(UUID actor, String playerName, String rang) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("guild_edit_setrang_player");
+            dataOutputStream.writeUTF(actor.toString());
+            dataOutputStream.writeUTF(playerName);
+            dataOutputStream.writeUTF(rang);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput(headerChannel, byteArrayOutputStream.toByteArray());
+    }
+
     public static void set_guild_home(UUID actor, Location location) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
