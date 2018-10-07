@@ -14,6 +14,7 @@ package de.linzn.mineGuild.connector;
 import de.linzn.jSocket.client.JClientConnection;
 import de.linzn.jSocket.core.IncomingDataListener;
 import de.linzn.mineGuild.connector.commands.GuildCommand;
+import de.linzn.mineGuild.connector.commands.standalone.GChat;
 import de.linzn.mineGuild.connector.listener.JobsRebornListener;
 import de.linzn.mineGuild.connector.listener.McmmoListener;
 import de.linzn.mineGuild.connector.socket.checkStream.JClientGuildCheckListener;
@@ -105,6 +106,9 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
         if (!guildCommand.isLoaded())
             guildCommand.loadCmd();
         getCommand("guild").setExecutor(guildCommand);
+
+        GChat gChat = new GChat(this, "mineguild.chat");
+        getCommand("gc").setExecutor(gChat);
     }
 
     private void registerListeners() {

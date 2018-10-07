@@ -27,6 +27,7 @@ permissions:
             mineguild.home: true
             mineguild.deposit: true
             mineguild.withdraw: true
+            mineguild.chat: true
     mineguild.help:
         default: op
     mineguild.create:
@@ -54,4 +55,6 @@ permissions:
     mineguild.deposit:
         default: op
     mineguild.withdraw:
+        default: op
+    mineguild.chat:
         default: op

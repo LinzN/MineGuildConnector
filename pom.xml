@@ -63,6 +63,11 @@
             <artifactId>mineSuiteCore</artifactId>
             <version>2.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>de.linzn</groupId>
+            <artifactId>mineSuiteChat</artifactId>
+            <version>2.1.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>
