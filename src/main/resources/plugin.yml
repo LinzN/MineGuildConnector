@@ -9,6 +9,8 @@ api-version: 1.13
 commands:
   guild:
     description: Guild Command
+  gc:
+    description: Guild chat command
 permissions:
     mineguild.all:
         description: Alle Guild permissions
