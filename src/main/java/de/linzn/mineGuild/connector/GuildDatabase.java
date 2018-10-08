@@ -68,5 +68,8 @@ public class GuildDatabase {
         guilds.remove(uuid);
     }
 
+    public static void clearDatabase() {
+        guilds.clear();
+    }
 
 }
