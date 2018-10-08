@@ -12,6 +12,11 @@ commands:
   gc:
     description: Guild chat command
 permissions:
+    mineguild.team:
+        description: Alle Guild permissions
+        children:
+            mineguild.all: true
+            mineguild.noprefix: true
     mineguild.all:
         description: Alle Guild permissions
         children:
@@ -62,4 +67,6 @@ permissions:
     mineguild.chat:
         default: op
     mineguild.setrang:
+        default: op
+    mineguild.noprefix:
         default: op

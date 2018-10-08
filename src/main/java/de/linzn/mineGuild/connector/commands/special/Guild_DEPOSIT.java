@@ -55,6 +55,12 @@ public class Guild_DEPOSIT implements ICommand {
             return true;
         }
 
+        int min = 5;
+        if (amount < min) {
+            player.sendMessage(LanguageDB.NOT_ENOUGH_TRANSACTION.replace("{zahl}", "" + min));
+            return true;
+        }
+
         UUID actor = player.getUniqueId();
         JClientGuildCommandOutput.player_deposit_guild(actor, amount);
         return true;

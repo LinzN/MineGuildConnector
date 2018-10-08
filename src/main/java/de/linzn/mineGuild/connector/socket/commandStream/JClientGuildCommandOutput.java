@@ -173,6 +173,7 @@ public class JClientGuildCommandOutput {
             dataOutputStream.writeUTF("guild_deposit_to_guild");
             dataOutputStream.writeUTF(actor.toString());
             dataOutputStream.writeDouble(amount);
+            dataOutputStream.writeUTF(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.BUNGEE_SERVER_NAME);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -186,6 +187,7 @@ public class JClientGuildCommandOutput {
             dataOutputStream.writeUTF("guild_withdraw_from_guild");
             dataOutputStream.writeUTF(actor.toString());
             dataOutputStream.writeDouble(amount);
+            dataOutputStream.writeUTF(MineSuiteCorePlugin.getInstance().getMineConfigs().generalConfig.BUNGEE_SERVER_NAME);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,6 +13,7 @@ package de.linzn.mineGuild.connector.socket.updateStream;
 
 import de.linzn.jSocket.core.IncomingDataListener;
 import de.linzn.mineGuild.connector.manager.GuildConnectorManager;
+import de.linzn.mineGuild.connector.manager.TransactionManager;
 import de.linzn.mineGuild.connector.objects.Guild;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 
@@ -67,6 +68,18 @@ public class JClientGuildUpdateListener implements IncomingDataListener {
                 UUID guildUUID = UUID.fromString(in.readUTF());
                 UUID playerUUID = UUID.fromString(in.readUTF());
                 GuildConnectorManager.add_guildplayer(guildUUID, playerUUID);
+            }
+
+            if (subChannel.equalsIgnoreCase("guild_accept_withdraw")) {
+                UUID playerUUID = UUID.fromString(in.readUTF());
+                double amount = in.readDouble();
+                TransactionManager.player_withdraw_transaction(playerUUID, amount);
+            }
+
+            if (subChannel.equalsIgnoreCase("guild_accept_deposit")) {
+                UUID playerUUID = UUID.fromString(in.readUTF());
+                double amount = in.readDouble();
+                TransactionManager.player_deposit_transaction(playerUUID, amount);
             }
 
         } catch (IOException e1) {

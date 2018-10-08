@@ -46,6 +46,7 @@ public class GuildConnectorManager {
         guild.setGuildPlayer(guildPlayer);
         guildPlayer.setGuild(guild);
         MineGuildConnectorPlugin.inst().getLogger().info("Add new guildplayer " + guildPlayer.getUUID().toString() + " to guild " + guild.guildUUID.toString());
+        TransactionManager.player_set_prefix(playerUUID);
     }
 
     public static void remove_guildplayer(UUID guildUUID, UUID playerUUID) {
@@ -53,11 +54,16 @@ public class GuildConnectorManager {
         GuildPlayer guildPlayer = GuildDatabase.getGuildPlayer(playerUUID);
         guild.unsetGuildPlayer(guildPlayer);
         MineGuildConnectorPlugin.inst().getLogger().info("Removed new guildplayer " + playerUUID.toString() + " from guild " + guild.guildUUID.toString());
+        TransactionManager.player_unset_prefix(playerUUID);
     }
 
     public static void set_guild_data(Guild guild) {
         GuildDatabase.addGuild(guild);
         MineGuildConnectorPlugin.inst().getLogger().info("Set new guild " + guild.guildUUID.toString());
+    }
+
+    public static GuildPlayer wrap_guild_player(UUID uuid) {
+        return GuildDatabase.getGuildPlayer(uuid);
     }
 
     public static void set_guildplayer_data(UUID guildUUID, UUID playerUUID) {
