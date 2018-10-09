@@ -29,12 +29,12 @@ public class TransactionManager {
 
         if (transaction(offlinePlayer.getName(), guildUUIDName, amount)) {
             if (offlinePlayer.isOnline()) {
-                offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_SUCCESS);
+                offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_SUCCESS.replace("{zahl}", "" + amount));
             }
             MineGuildConnectorPlugin.inst().getLogger().info("Transaction SUCCESS: " + offlinePlayer.getName() + " to " + guildUUIDName + " :: " + amount);
         } else {
             if (offlinePlayer.isOnline()) {
-                offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_ERROR);
+                offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_ERROR.replace("{zahl}", "" + amount));
             }
             MineGuildConnectorPlugin.inst().getLogger().warning("Transaction ERROR: " + offlinePlayer.getName() + " to " + guildUUIDName + " :: " + amount);
         }
@@ -66,12 +66,12 @@ public class TransactionManager {
 
         if (transaction(guildUUIDName, offlinePlayer.getName(), amount)) {
             if (offlinePlayer.isOnline()) {
-                offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_SUCCESS);
+                offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_SUCCESS.replace("{zahl}", "" + amount));
             }
             MineGuildConnectorPlugin.inst().getLogger().info("Transaction SUCCESS: " + guildUUIDName + " to " + offlinePlayer.getName() + " :: " + amount);
         } else {
             if (offlinePlayer.isOnline()) {
-                offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_ERROR);
+                offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_ERROR.replace("{zahl}", "" + amount));
             }
             MineGuildConnectorPlugin.inst().getLogger().warning("Transaction ERROR: " + guildUUIDName + " to " + offlinePlayer.getName() + " :: " + amount);
         }
