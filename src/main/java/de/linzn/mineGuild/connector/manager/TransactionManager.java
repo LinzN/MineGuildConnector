@@ -2,6 +2,7 @@ package de.linzn.mineGuild.connector.manager;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
+import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -11,8 +12,8 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class TransactionManager {
-    private static Economy eCon = MineGuildConnectorPlugin.getEconomy();
-    private static Chat chat = MineGuildConnectorPlugin.getChat();
+    private static Economy eCon = MineSuiteCorePlugin.getEconomy();
+    private static Chat chat = MineSuiteCorePlugin.getChat();
 
     public static void player_deposit_transaction(UUID guildUUID, UUID playerUUID, double amount) {
         if (amount <= 0) {

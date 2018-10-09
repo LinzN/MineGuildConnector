@@ -34,28 +34,15 @@ import de.linzn.mineGuild.connector.socket.updateStream.JClientGuildUpdateListen
 import de.linzn.mineGuild.connector.socket.updateStream.JClientGuildUpdateOutput;
 import de.linzn.mineGuild.connector.utils.GuildUpdater;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.economy.Economy;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
 
 public class MineGuildConnectorPlugin extends JavaPlugin {
     private static MineGuildConnectorPlugin inst;
-    private Economy econ = null;
-    private Chat chat = null;
     private GuildUpdater guildUpdater = null;
     private HashSet<IncomingDataListener> listenerList;
     private HashSet<ConnectionListener> conListenerList;
-
-    public static Economy getEconomy() {
-        return inst().econ;
-    }
-
-    public static Chat getChat() {
-        return inst().chat;
-    }
 
     public static MineGuildConnectorPlugin inst() {
         return inst;
@@ -66,15 +53,8 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
         inst = this;
         this.listenerList = new HashSet<>();
         this.conListenerList = new HashSet<>();
-        if (!setupEconomy()) {
-            this.getLogger().warning(
-                    String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
         loadCommands();
         registerListeners();
-        setupChat();
         this.guildUpdater = new GuildUpdater();
     }
 
@@ -82,27 +62,6 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
     public void onDisable() {
         this.unregisterListeners();
         this.listenerList.clear();
-    }
-
-    private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        this.econ = rsp.getProvider();
-        return this.econ != null;
-    }
-
-    private void setupChat() {
-        RegisteredServiceProvider<Chat> chatProvider = getServer().getServicesManager()
-                .getRegistration(net.milkbowl.vault.chat.Chat.class);
-        if (chatProvider != null) {
-            chat = chatProvider.getProvider();
-            this.getLogger().info("Using Vault for Chatprovider!");
-        }
     }
 
     private void loadCommands() {
