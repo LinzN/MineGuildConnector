@@ -41,6 +41,16 @@ public class TransactionManager {
 
     }
 
+    public static void add_to_guild_account(UUID guildUUID, double amount) {
+        if (amount <= 0) {
+            return;
+        }
+        String guildUUIDName = create_guild_name(guildUUID);
+        if (!eCon.depositPlayer(guildUUIDName, amount).transactionSuccess()) {
+            MineGuildConnectorPlugin.inst().getLogger().warning("Transaction ERROR: " + guildUUIDName + " :: " + amount);
+        }
+    }
+
     public static void player_withdraw_transaction(UUID guildUUID, UUID playerUUID, double amount) {
         if (amount <= 0) {
             return;

@@ -17,6 +17,7 @@ import de.linzn.jSocket.core.IncomingDataListener;
 import de.linzn.mineGuild.connector.commands.GuildCommand;
 import de.linzn.mineGuild.connector.commands.standalone.GChat;
 import de.linzn.mineGuild.connector.listener.JobsRebornListener;
+import de.linzn.mineGuild.connector.listener.LoginListener;
 import de.linzn.mineGuild.connector.listener.McmmoListener;
 import de.linzn.mineGuild.connector.socket.JClientConnectionListener;
 import de.linzn.mineGuild.connector.socket.checkStream.JClientGuildCheckListener;
@@ -143,6 +144,7 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
         jClientConnection.registerIncomingDataListener(JClientGuildControlOutput.headerChannel, jClientGuildControlListener);
         jClientConnection.registerIncomingDataListener(JClientGuildCheckOutput.headerChannel, jClientGuildCheckListener);
 
+        this.getServer().getPluginManager().registerEvents(new LoginListener(), this);
         this.getServer().getPluginManager().registerEvents(new McmmoListener(), this);
         this.getServer().getPluginManager().registerEvents(new JobsRebornListener(), this);
     }
