@@ -19,7 +19,10 @@ public class LanguageDB {
     public static String NOT_A_NUMBER = ChatColor.DARK_RED + "Dies ist keine gültige Zahl!";
     public static String NO_CONSOLE = ChatColor.DARK_RED + "Dies geht nur ingame!";
     public static String NOT_ENOUGH_TRANSACTION = ChatColor.DARK_RED + "Die kleinstmögliche Transaktion ist {zahl}!";
+    public static String NOT_ENOUGH_MONEY_TRANSACTION = ChatColor.DARK_RED + "Transaktion fehlgeschlagen. Nicht genügend Mines auf Konto vorhanden!";
     public static String INVALID_GUILD_NAME = ChatColor.DARK_RED + "Der Gildenname darf nur aus Zahlen und Buchstaben bestehen!";
     public static String NO_COMMAND = ChatColor.DARK_RED + "Dies ist kein gültiger Befehl. Gib {command} für Hilfe ein!";
     public static String COMMAND_USAGE = ChatColor.RED + "Benutze: {command}";
+    public static String TRANSACTION_SUCCESS = ChatColor.GREEN + "Transaktion von {zahl} Mines erfolgreich abgeschlossen!";
+    public static String TRANSACTION_ERROR = ChatColor.DARK_RED + "Transaktion von {zahl} Mines fehlgeschlagen. Bitte an Admin wenden!";
 }

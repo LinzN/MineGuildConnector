@@ -71,15 +71,17 @@ public class JClientGuildUpdateListener implements IncomingDataListener {
             }
 
             if (subChannel.equalsIgnoreCase("guild_accept_withdraw")) {
+                UUID guildUUID = UUID.fromString(in.readUTF());
                 UUID playerUUID = UUID.fromString(in.readUTF());
                 double amount = in.readDouble();
-                TransactionManager.player_withdraw_transaction(playerUUID, amount);
+                TransactionManager.player_withdraw_transaction(guildUUID, playerUUID, amount);
             }
 
             if (subChannel.equalsIgnoreCase("guild_accept_deposit")) {
+                UUID guildUUID = UUID.fromString(in.readUTF());
                 UUID playerUUID = UUID.fromString(in.readUTF());
                 double amount = in.readDouble();
-                TransactionManager.player_deposit_transaction(playerUUID, amount);
+                TransactionManager.player_deposit_transaction(guildUUID, playerUUID, amount);
             }
 
         } catch (IOException e1) {
