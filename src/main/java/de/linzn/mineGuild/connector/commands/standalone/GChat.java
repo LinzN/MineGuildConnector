@@ -13,8 +13,8 @@ package de.linzn.mineGuild.connector.commands.standalone;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
-import de.linzn.mineSuite.chat.ChatPlugin;
 import de.linzn.mineSuite.chat.socket.JClientChatOutput;
+import de.linzn.mineSuite.chat.utils.VaultAccess;
 import de.linzn.mineSuite.core.configurations.YamlFiles.GeneralLanguage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -60,8 +60,8 @@ public class GChat implements CommandExecutor {
                 String arg = arg1 + " ";
                 text = text + arg;
             }
-            String prefix = ChatPlugin.inst().getVaultData().getPrefix(player).replace("&", "§");
-            String suffix = ChatPlugin.inst().getVaultData().getSuffix(player).replace("&", "§");
+            String prefix = VaultAccess.getPrefix(player).replace("&", "§");
+            String suffix = VaultAccess.getSuffix(player).replace("&", "§");
             JClientChatOutput.channelChat(sender.getName(), text, prefix, suffix, "GUILD");
         });
         return true;
