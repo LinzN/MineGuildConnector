@@ -13,7 +13,6 @@ package de.linzn.mineGuild.connector.listener;
 
 import com.gamingmesh.jobs.api.JobsPaymentEvent;
 import de.linzn.mineGuild.connector.GuildDatabase;
-import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.manager.TransactionManager;
 import de.linzn.mineGuild.connector.objects.Guild;
 import de.linzn.mineGuild.connector.objects.GuildPlayer;
@@ -46,7 +45,6 @@ public class JobsRebornListener implements Listener {
         event.setAmount(newAmount);
 
         TransactionManager.add_to_guild_account(guild.guildUUID, guildAmount);
-        MineGuildConnectorPlugin.inst().getLogger().info("DEBUG: Add " + guildAmount + " Money to Guild " + guild.guildUUID.toString());
 
     }
 }

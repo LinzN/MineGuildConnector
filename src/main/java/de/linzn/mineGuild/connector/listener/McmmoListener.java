@@ -63,7 +63,6 @@ public class McmmoListener implements Listener {
             }
             double guildExp = base * multiplier;
             MineGuildConnectorPlugin.inst().getGuildUpdater().addData(guild.guildUUID, guildExp);
-            MineGuildConnectorPlugin.inst().getLogger().info("DEBUG: Add " + guildExp + " EXP to Guild " + guild.guildUUID.toString());
         });
 
     }
