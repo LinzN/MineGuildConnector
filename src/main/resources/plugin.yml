@@ -36,6 +36,25 @@ permissions:
             mineguild.withdraw: true
             mineguild.chat: true
             mineguild.setrang: true
+            mineguild.edit.all: true
+    mineguild.edit.all:
+        description: Alle Guild permissions
+        children:
+            mineguild.edit.help: true
+            mineguild.edit.guildname: true
+            mineguild.edit.guildmaster: true
+            mineguild.edit.guildhome: true
+            mineguild.edit.setrang: true
+    mineguild.edit.help:
+        default: op
+    mineguild.edit.guildname:
+        default: op
+    mineguild.edit.guildmaster:
+        default: op
+    mineguild.edit.guildhome:
+        default: op
+    mineguild.edit.setrang:
+        default: op
     mineguild.help:
         default: op
     mineguild.create:
