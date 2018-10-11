@@ -20,11 +20,11 @@
         </repository>
     </repositories>
     <dependencies>
-		<dependency>
-			<groupId>com.gmail.nossr50.mcMMO</groupId>
-			<artifactId>mcMMO</artifactId>
-			<version>1.5.10-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>com.gmail.nossr50.mcMMO</groupId>
+            <artifactId>mcMMO</artifactId>
+            <version>1.5.10-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>VaultAPI</artifactId>
