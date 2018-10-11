@@ -20,8 +20,6 @@ import de.linzn.mineGuild.connector.listener.JobsRebornListener;
 import de.linzn.mineGuild.connector.listener.LoginListener;
 import de.linzn.mineGuild.connector.listener.McmmoListener;
 import de.linzn.mineGuild.connector.socket.JClientConnectionListener;
-import de.linzn.mineGuild.connector.socket.checkStream.JClientGuildCheckListener;
-import de.linzn.mineGuild.connector.socket.checkStream.JClientGuildCheckOutput;
 import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandListener;
 import de.linzn.mineGuild.connector.socket.commandStream.JClientGuildCommandOutput;
 import de.linzn.mineGuild.connector.socket.controlStream.JClientGuildControlListener;
@@ -82,7 +80,6 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
         JClientGuildRangListener jClientGuildRangListener = new JClientGuildRangListener();
         JClientGuildUpdateListener jClientGuildUpdateListener = new JClientGuildUpdateListener();
         JClientGuildControlListener jClientGuildControlListener = new JClientGuildControlListener();
-        JClientGuildCheckListener jClientGuildCheckListener = new JClientGuildCheckListener();
 
         this.conListenerList.add(jClientConnectionListener);
 
@@ -91,7 +88,6 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
         this.listenerList.add(jClientGuildRangListener);
         this.listenerList.add(jClientGuildUpdateListener);
         this.listenerList.add(jClientGuildControlListener);
-        this.listenerList.add(jClientGuildCheckListener);
 
         JClientConnection jClientConnection = MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1;
         jClientConnection.registerConnectionListener(jClientConnectionListener);
@@ -101,7 +97,6 @@ public class MineGuildConnectorPlugin extends JavaPlugin {
         jClientConnection.registerIncomingDataListener(JClientGuildRangOutput.headerChannel, jClientGuildRangListener);
         jClientConnection.registerIncomingDataListener(JClientGuildUpdateOutput.headerChannel, jClientGuildUpdateListener);
         jClientConnection.registerIncomingDataListener(JClientGuildControlOutput.headerChannel, jClientGuildControlListener);
-        jClientConnection.registerIncomingDataListener(JClientGuildCheckOutput.headerChannel, jClientGuildCheckListener);
 
         this.getServer().getPluginManager().registerEvents(new LoginListener(), this);
         this.getServer().getPluginManager().registerEvents(new McmmoListener(), this);
