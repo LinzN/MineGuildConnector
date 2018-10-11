@@ -84,6 +84,12 @@ public class JClientGuildUpdateListener implements IncomingDataListener {
                 TransactionManager.player_deposit_transaction(guildUUID, playerUUID, amount);
             }
 
+            if (subChannel.equalsIgnoreCase("plugin_migrate_data")) {
+                UUID guildUUID = UUID.fromString(in.readUTF());
+                String guildName = in.readUTF();
+                TransactionManager.migrate_guild_to_uuid(guildUUID, guildName);
+            }
+
         } catch (IOException e1) {
             e1.printStackTrace();
         }
