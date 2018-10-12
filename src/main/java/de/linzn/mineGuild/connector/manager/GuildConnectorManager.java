@@ -30,6 +30,14 @@ public class GuildConnectorManager {
     }
 
     public static void remove_guild(UUID guildUUID) {
+        Guild guild = GuildDatabase.getGuild(guildUUID);
+        if (guild != null) {
+            for (GuildPlayer guildPlayer : guild.guildPlayers) {
+                if (Bukkit.getServer().getOfflinePlayer(guildPlayer.getUUID()).isOnline()) {
+                    TransactionManager.player_unset_prefix(Bukkit.getServer().getPlayer(guildPlayer.getUUID()));
+                }
+            }
+        }
         GuildDatabase.removeGuild(guildUUID);
         MineGuildConnectorPlugin.inst().getLogger().info("Removed guild " + guildUUID.toString());
     }
@@ -46,7 +54,9 @@ public class GuildConnectorManager {
         guild.setGuildPlayer(guildPlayer);
         guildPlayer.setGuild(guild);
         MineGuildConnectorPlugin.inst().getLogger().info("Add new guildplayer " + guildPlayer.getUUID().toString() + " to guild " + guild.guildUUID.toString());
-        TransactionManager.player_set_prefix(playerUUID);
+        if (Bukkit.getServer().getOfflinePlayer(playerUUID).isOnline()) {
+            TransactionManager.player_set_prefix(Bukkit.getServer().getPlayer(playerUUID));
+        }
     }
 
     public static void remove_guildplayer(UUID guildUUID, UUID playerUUID) {
@@ -54,7 +64,9 @@ public class GuildConnectorManager {
         GuildPlayer guildPlayer = GuildDatabase.getGuildPlayer(playerUUID);
         guild.unsetGuildPlayer(guildPlayer);
         MineGuildConnectorPlugin.inst().getLogger().info("Removed new guildplayer " + playerUUID.toString() + " from guild " + guild.guildUUID.toString());
-        TransactionManager.player_unset_prefix(playerUUID);
+        if (Bukkit.getServer().getOfflinePlayer(playerUUID).isOnline()) {
+            TransactionManager.player_unset_prefix(Bukkit.getServer().getPlayer(playerUUID));
+        }
     }
 
     public static void set_guild_data(Guild guild) {

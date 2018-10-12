@@ -92,16 +92,14 @@ public class TransactionManager {
         return "guild_" + guildUUID.toString();
     }
 
-    public static void player_set_prefix(UUID playerUUID) {
-        Player player = Bukkit.getPlayer(playerUUID);
-        if (player != null && !player.hasPermission("mineguild.noprefix")) {
+    public static void player_set_prefix(Player player) {
+        if (!player.hasPermission("mineguild.noprefix")) {
             chat.setPlayerPrefix(player, "§a");
         }
     }
 
-    public static void player_unset_prefix(UUID playerUUID) {
-        Player player = Bukkit.getPlayer(playerUUID);
-        if (player != null && !player.hasPermission("mineguild.noprefix")) {
+    public static void player_unset_prefix(Player player) {
+        if (!player.hasPermission("mineguild.noprefix")) {
             chat.setPlayerPrefix(player, null);
         }
     }
