@@ -13,8 +13,10 @@ package de.linzn.mineGuild.connector.socket.controlStream;
 
 import de.linzn.jSocket.core.IncomingDataListener;
 import de.linzn.mineGuild.connector.manager.GuildConnectorManager;
-import de.linzn.mineGuild.connector.objects.Guild;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -37,23 +39,13 @@ public class JClientGuildControlListener implements IncomingDataListener {
                 return;
             }
             subChannel = in.readUTF();
-
-            if (subChannel.equalsIgnoreCase("guild_set_guild_data")) {
-                UUID guildUUID = UUID.fromString(in.readUTF());
-                String guildName = in.readUTF();
-                int level = in.readInt();
-                Guild guild = new Guild(guildUUID);
-                guild.setLevel(level);
-                GuildConnectorManager.set_guild_data(guild);
-                return;
-            }
-
-            if (subChannel.equalsIgnoreCase("guild_set_guildplayer_data")) {
-                UUID guildUUID = UUID.fromString(in.readUTF());
-                UUID playerUUID = UUID.fromString(in.readUTF());
-
-                GuildConnectorManager.set_guildplayer_data(guildUUID, playerUUID);
-                return;
+            if (subChannel.equalsIgnoreCase("guild_set_guild_packet")) {
+                try {
+                    JSONObject jsonObject = (JSONObject) new JSONParser().parse(in.readUTF());
+                    GuildConnectorManager.set_guild_object(jsonObject);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             }
 
         } catch (IOException e1) {

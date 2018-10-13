@@ -17,6 +17,8 @@ import de.linzn.mineGuild.connector.objects.Guild;
 import de.linzn.mineGuild.connector.objects.GuildPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.HashSet;
 import java.util.UUID;
@@ -69,21 +71,28 @@ public class GuildConnectorManager {
         }
     }
 
-    public static void set_guild_data(Guild guild) {
-        GuildDatabase.addGuild(guild);
-        MineGuildConnectorPlugin.inst().getLogger().info("Set new guild " + guild.guildUUID.toString());
-    }
-
     public static GuildPlayer wrap_guild_player(UUID uuid) {
         return GuildDatabase.getGuildPlayer(uuid);
     }
 
-    public static void set_guildplayer_data(UUID guildUUID, UUID playerUUID) {
-        Guild guild = GuildDatabase.getGuild(guildUUID);
-        GuildPlayer guildPlayer = new GuildPlayer(playerUUID);
-        guild.setGuildPlayer(guildPlayer);
-        guildPlayer.setGuild(guild);
-        MineGuildConnectorPlugin.inst().getLogger().info("Set new guildplayer " + guildPlayer.getUUID().toString() + " to guild " + guild.guildUUID.toString());
+
+    public static void set_guild_object(JSONObject jsonObject) {
+        UUID guildUUID = UUID.fromString((String) jsonObject.get("guildUUID"));
+        int guildLevel = Integer.parseInt("" + (long) jsonObject.get("guildLevel"));
+
+        Guild guild = new Guild(guildUUID);
+        guild.setLevel(guildLevel);
+
+        JSONArray jsonArray = (JSONArray) jsonObject.get("guildMembers");
+        for (Object object : jsonArray) {
+            UUID playerUUID = UUID.fromString((String) object);
+            GuildPlayer guildPlayer = new GuildPlayer(playerUUID);
+            guildPlayer.setGuild(guild);
+            guild.setGuildPlayer(guildPlayer);
+        }
+
+        GuildDatabase.addGuild(guild);
+        MineGuildConnectorPlugin.inst().getLogger().info("Set new guild from JSON" + guild.guildUUID.toString());
     }
 
     public static HashSet<GuildPlayer> get_nearby_guild_player(GuildPlayer gPlayer) {

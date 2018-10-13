@@ -99,9 +99,7 @@ public class TransactionManager {
     }
 
     public static void player_unset_prefix(Player player) {
-        if (!player.hasPermission("mineguild.noprefix")) {
             chat.setPlayerPrefix(player, null);
-        }
     }
 
     public static void migrate_guild_to_uuid(UUID guildUUID, String guildName) {
