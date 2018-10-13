@@ -14,6 +14,8 @@ package de.linzn.mineGuild.connector.utils;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.socket.updateStream.JClientGuildUpdateOutput;
 import org.bukkit.Bukkit;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -40,14 +42,16 @@ public class GuildUpdater implements Runnable {
         MineGuildConnectorPlugin.inst().getLogger().info("Run sync task..: " + guild_cache.size());
         final HashMap<UUID, Double> data = new HashMap<>(guild_cache);
         guild_cache.clear();
+        JSONArray jsonArray = new JSONArray();
         for (UUID uuid : data.keySet()) {
             double value = data.get(uuid);
-            JClientGuildUpdateOutput.add_new_guild_exp(uuid, value);
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException ignored) {
-            }
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("guildUUID", uuid.toString());
+            jsonObject.put("guildExperience", value);
+            jsonArray.add(jsonObject);
         }
+
+        JClientGuildUpdateOutput.add_experience_sync(jsonArray);
         MineGuildConnectorPlugin.inst().getLogger().info("Finish sync task..");
     }
 }

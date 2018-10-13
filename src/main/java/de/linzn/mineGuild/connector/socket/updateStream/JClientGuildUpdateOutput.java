@@ -12,23 +12,22 @@
 package de.linzn.mineGuild.connector.socket.updateStream;
 
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
+import org.json.simple.JSONArray;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.UUID;
 
 public class JClientGuildUpdateOutput {
 
     public static String headerChannel = "mineGuild_update";
 
-    public static void add_new_guild_exp(UUID guildUUID, double data) {
+    public static void add_experience_sync(JSONArray jsonArray) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
         try {
-            dataOutputStream.writeUTF("add_guild_exp");
-            dataOutputStream.writeUTF(guildUUID.toString());
-            dataOutputStream.writeDouble(data);
+            dataOutputStream.writeUTF("add_experience_sync");
+            dataOutputStream.writeUTF(jsonArray.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
