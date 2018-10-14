@@ -15,9 +15,9 @@ permissions:
     mineguild.team:
         description: Alle Guild permissions
         children:
-            mineguild.all: true
+            mineguild.player.all: true
             mineguild.noprefix: true
-    mineguild.all:
+    mineguild.player.all:
         description: Alle Guild permissions
         children:
             mineguild.help: true
