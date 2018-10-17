@@ -73,7 +73,7 @@ public class PluginUtil {
     public static double get_mcmmo_multiplikator(int guildLevel) {
         double value;
         int maxLevel = 30;
-        int maxShare = 75;
+        int maxShare = 60;
         if (guildLevel < maxLevel) {
             value = ((50D / (double) maxLevel) * (double) guildLevel);
         } else {
