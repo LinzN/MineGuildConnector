@@ -9,23 +9,23 @@
  *
  */
 
-package de.linzn.mineGuild.connector.commands.edit;
+package de.linzn.mineGuild.connector.commands.rang;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.commands.ICommand;
-import de.linzn.mineGuild.connector.socket.editStream.JClientGuildEditOutput;
+import de.linzn.mineGuild.connector.socket.rangStream.JClientGuildRangOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class Edit_SETRANG implements ICommand {
+public class RANG_SETPLAYER implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public Edit_SETRANG(MineGuildConnectorPlugin plugin, String permission) {
+    public RANG_SETPLAYER(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -44,7 +44,7 @@ public class Edit_SETRANG implements ICommand {
         }
 
         if (args.length < 3) {
-            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit setrang <Spielername> <Rangname>"));
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild rang setplayer [Spielername] [Rangname]"));
             return true;
         }
 
@@ -52,7 +52,7 @@ public class Edit_SETRANG implements ICommand {
         String rangName = args[2];
         UUID actor = player.getUniqueId();
 
-        JClientGuildEditOutput.set_player_rang(actor, playerName, rangName);
+        JClientGuildRangOutput.set_player_rang(actor, playerName, rangName);
 
         return true;
     }

@@ -13,16 +13,19 @@ package de.linzn.mineGuild.connector.commands.rang;
 
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.commands.ICommand;
+import de.linzn.mineGuild.connector.socket.rangStream.JClientGuildRangOutput;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class RANG_HELP implements ICommand {
+import java.util.UUID;
+
+public class RANG_INFO implements ICommand {
     private MineGuildConnectorPlugin plugin;
     private String permission;
 
 
-    public RANG_HELP(MineGuildConnectorPlugin plugin, String permission) {
+    public RANG_INFO(MineGuildConnectorPlugin plugin, String permission) {
         this.plugin = plugin;
         this.permission = permission;
     }
@@ -39,22 +42,16 @@ public class RANG_HELP implements ICommand {
             player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
-        if (args.length >= 2) {
 
-            if (args[1].equalsIgnoreCase("2")) {
-                player.sendMessage(("§6§lAllgemeine Ranghilfe: "));
-                player.sendMessage(" §2 Mitgliederrang anzeigen: §4/guild rang show [Spieler]");
-                player.sendMessage(" §2 Rang zuweisen: §e/guild rang setplayer [Spieler] [Rang]");
-                return true;
-            }
+        if (args.length < 2) {
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild rang info [Rang]"));
+            return true;
         }
-        player.sendMessage("§e§n§6§l-============[§2§lMineGuild Rangs§r§6§l]============-");
-        player.sendMessage("§2 Rang Info: §4/guild rang info [Rang]");
-        player.sendMessage("§2 Alle Ränge auflisten: §4/guild rang list <Seite>");
-        player.sendMessage("§6§lÜbersicht der Rang Hilfebereiche:");
-        player.sendMessage(" §2Allgemeine Ranghilfe §a/guild rang help 1 - 2");
+
+        String rangName = args[1];
+        UUID actor = player.getUniqueId();
+
+        JClientGuildRangOutput.show_rang_info(actor, rangName);
         return true;
-
-
     }
 }

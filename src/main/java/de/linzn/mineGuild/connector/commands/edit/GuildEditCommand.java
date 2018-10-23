@@ -66,7 +66,6 @@ public class GuildEditCommand implements ICommand {
             this.cmdMap.put("guildname", new Edit_GUILDNAME(this.plugin, "mineguild.edit.guildname"));
             this.cmdMap.put("guildmaster", new Edit_GUILDMASTER(this.plugin, "mineguild.edit.guildmaster"));
             this.cmdMap.put("guildhome", new Edit_GUILDHOME(this.plugin, "mineguild.edit.guildhome"));
-            this.cmdMap.put("setrang", new Edit_SETRANG(this.plugin, "mineguild.edit.setrang"));
             this.isLoaded = true;
         } catch (Exception e) {
             e.printStackTrace();

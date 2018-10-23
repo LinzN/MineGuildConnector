@@ -45,7 +45,6 @@ public class EDIT_HELP implements ICommand {
                 player.sendMessage(" §2Gildennamen ändern: §e/guild edit guildname <Gildenname>");
                 player.sendMessage(" §2Gildenhome ändern: §e/guild edit guildhome confirm");
                 player.sendMessage(" §2Gildenmeister ändern: §e/guild edit guildmaster <Spielername>");
-                player.sendMessage(" §2Rang zuweisen/ändern: §e/guild edit setrang <Spielername> <Rangname>");
                 return true;
             }
         }

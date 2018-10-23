@@ -63,6 +63,10 @@ public class GuildRangCommand implements ICommand {
     public void loadCmd() {
         try {
             this.cmdMap.put("help", new RANG_HELP(this.plugin, "mineguild.rang.help"));
+            this.cmdMap.put("setplayer", new RANG_SETPLAYER(this.plugin, "mineguild.rang.setplayer"));
+            this.cmdMap.put("info", new RANG_INFO(this.plugin, "mineguild.rang.info"));
+            this.cmdMap.put("show", new RANG_SHOW(this.plugin, "mineguild.rang.show"));
+            this.cmdMap.put("list", new RANG_LIST(this.plugin, "mineguild.rang.list"));
 
             this.isLoaded = true;
         } catch (Exception e) {

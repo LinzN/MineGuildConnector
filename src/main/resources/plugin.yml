@@ -35,8 +35,8 @@ permissions:
             mineguild.deposit: true
             mineguild.withdraw: true
             mineguild.chat: true
-            mineguild.setrang: true
             mineguild.edit.all: true
+            mineguild.rang.all: true
     mineguild.edit.all:
         description: Alle Guild permissions
         children:
@@ -44,7 +44,14 @@ permissions:
             mineguild.edit.guildname: true
             mineguild.edit.guildmaster: true
             mineguild.edit.guildhome: true
-            mineguild.edit.setrang: true
+    mineguild.rang.all:
+        description: Alle Guild permissions
+        children:
+            mineguild.rang.help: true
+            mineguild.rang.info: true
+            mineguild.rang.show: true
+            mineguild.rang.setplayer: true
+            mineguild.rang.list: true
     mineguild.edit.help:
         default: op
     mineguild.edit.guildname:
@@ -85,7 +92,15 @@ permissions:
         default: op
     mineguild.chat:
         default: op
-    mineguild.setrang:
-        default: op
     mineguild.noprefix:
+        default: op
+    mineguild.rang.help:
+        default: op
+    mineguild.rang.info:
+        default: op
+    mineguild.rang.show:
+        default: op
+    mineguild.rang.list:
+        default: op
+    mineguild.rang.setplayer:
         default: op
