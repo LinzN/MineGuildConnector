@@ -65,7 +65,7 @@ public class Guild_HELP implements ICommand {
         player.sendMessage("§6§lÜbersicht der Gilden Hilfebereiche:");
         player.sendMessage(" §2Allgemeine Hilfe §a/guild help 1 - 3");
         player.sendMessage(" §2Gildeneinstellungen Hilfe §a/guild edit help");
-        player.sendMessage(" §2Ränge Hilfe §4/guild rang help");
+        player.sendMessage(" §2Ränge Hilfe §a/guild rang help");
         return true;
 
     }

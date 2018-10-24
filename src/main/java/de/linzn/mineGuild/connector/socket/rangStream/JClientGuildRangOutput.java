@@ -44,7 +44,6 @@ public class JClientGuildRangOutput {
             dataOutputStream.writeUTF("guild_rang_show_rang_info");
             dataOutputStream.writeUTF(actor.toString());
             dataOutputStream.writeUTF(rang);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +57,6 @@ public class JClientGuildRangOutput {
             dataOutputStream.writeUTF("guild_rang_show_player_rang");
             dataOutputStream.writeUTF(actor.toString());
             dataOutputStream.writeUTF(player);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,7 +70,6 @@ public class JClientGuildRangOutput {
             dataOutputStream.writeUTF("guild_rang_show_list");
             dataOutputStream.writeUTF(actor.toString());
             dataOutputStream.writeInt(page);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

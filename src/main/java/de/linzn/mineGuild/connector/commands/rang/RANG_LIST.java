@@ -44,7 +44,6 @@ public class RANG_LIST implements ICommand {
         }
         UUID actor = player.getUniqueId();
         JClientGuildRangOutput.list_guild_rangs(actor, 0);
-
         return true;
     }
 }
