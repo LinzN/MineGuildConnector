@@ -43,8 +43,8 @@ public class RANG_HELP implements ICommand {
 
             if (args[1].equalsIgnoreCase("2")) {
                 player.sendMessage(("§6§lAllgemeine Ranghilfe: "));
-                player.sendMessage(" §2 Mitgliederrang anzeigen: §e/guild rang show [Spieler]");
-                player.sendMessage(" §2 Rang zuweisen: §e/guild rang setplayer [Spieler] [Rang]");
+                player.sendMessage("§2 Mitgliederrang anzeigen: §e/guild rang show [Spieler]");
+                player.sendMessage("§2 Rang zuweisen: §e/guild rang setplayer [Spieler] [Rang]");
                 return true;
             }
         }
