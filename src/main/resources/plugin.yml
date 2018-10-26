@@ -35,6 +35,7 @@ permissions:
             mineguild.deposit: true
             mineguild.withdraw: true
             mineguild.chat: true
+            mineguild.confirm: true
             mineguild.edit.all: true
             mineguild.rang.all: true
     mineguild.edit.all:
@@ -93,6 +94,8 @@ permissions:
     mineguild.chat:
         default: op
     mineguild.noprefix:
+        default: op
+    mineguild.confirm:
         default: op
     mineguild.rang.help:
         default: op

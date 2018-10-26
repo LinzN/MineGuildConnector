@@ -15,6 +15,7 @@ import de.linzn.mineGuild.connector.GuildDatabase;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.objects.Guild;
 import de.linzn.mineGuild.connector.objects.GuildPlayer;
+import de.linzn.mineGuild.connector.utils.LanguageDB;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.json.simple.JSONArray;
@@ -111,6 +112,34 @@ public class GuildConnectorManager {
             }
         }
         return allPlayers;
+    }
+
+    public static void requestGuildConfirm(UUID playerUUID, UUID guildUUID) {
+        Player player = Bukkit.getPlayer(playerUUID);
+        if (player == null) {
+            MineGuildConnectorPlugin.inst().getLogger().info("Player is offline? Tja tadl???");
+            return;
+        }
+        Guild guild = GuildDatabase.getGuild(guildUUID);
+        if (guild == null) {
+            MineGuildConnectorPlugin.inst().getLogger().info("Guild is null? How can this happens???");
+            return;
+        }
+        GuildDatabase.guildActionRequests.put(playerUUID, guild);
+        player.sendMessage(LanguageDB.ACTION_WARNING);
+
+        int counter = 0;
+        while (GuildDatabase.guildActionRequests.containsKey(playerUUID)) {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException ignored) {
+            }
+            if (counter >= 100) { /* 5000 ms cancel task */
+                GuildDatabase.guildActionRequests.remove(playerUUID);
+                return;
+            }
+            counter++;
+        }
     }
 
 }

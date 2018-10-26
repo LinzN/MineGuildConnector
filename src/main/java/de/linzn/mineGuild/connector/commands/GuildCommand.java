@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.commands.edit.GuildEditCommand;
 import de.linzn.mineGuild.connector.commands.rang.GuildRangCommand;
+import de.linzn.mineGuild.connector.commands.special.Guild_CONFIRM;
 import de.linzn.mineGuild.connector.commands.special.Guild_DEPOSIT;
 import de.linzn.mineGuild.connector.commands.special.Guild_WITHDRAW;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
@@ -79,6 +80,7 @@ public class GuildCommand implements CommandExecutor {
             this.cmdMap.put("home", new Guild_HOME(this.plugin, "mineguild.home"));
             this.cmdMap.put("deposit", new Guild_DEPOSIT(this.plugin, "mineguild.deposit"));
             this.cmdMap.put("withdraw", new Guild_WITHDRAW(this.plugin, "mineguild.withdraw"));
+            this.cmdMap.put("confirm", new Guild_CONFIRM(this.plugin, "mineguild.confirm"));
 
 
             this.cmdMap.put("edit", new GuildEditCommand(this.plugin));

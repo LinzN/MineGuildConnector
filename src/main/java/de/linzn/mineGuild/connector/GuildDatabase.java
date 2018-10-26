@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.UUID;
 
 public class GuildDatabase {
+    public static HashMap<UUID, Guild> guildActionRequests = new HashMap<>();
     private static HashMap<UUID, Guild> guilds = new HashMap<>();
 
 

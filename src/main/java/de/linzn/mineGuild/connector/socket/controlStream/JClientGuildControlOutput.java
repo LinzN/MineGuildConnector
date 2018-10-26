@@ -16,6 +16,7 @@ import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 public class JClientGuildControlOutput {
 
@@ -28,6 +29,19 @@ public class JClientGuildControlOutput {
         try {
             dataOutputStream.writeUTF("request_all_guild_data");
             dataOutputStream.writeUTF(serverName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MineSuiteCorePlugin.getInstance().getMineJSocketClient().jClientConnection1.writeOutput(headerChannel, byteArrayOutputStream.toByteArray());
+    }
+
+    public static void send_guild_action_confirm(UUID playerUUID, UUID guildUUID) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        DataOutputStream dataOutputStream = new DataOutputStream(byteArrayOutputStream);
+        try {
+            dataOutputStream.writeUTF("confirm_guild_action");
+            dataOutputStream.writeUTF(playerUUID.toString());
+            dataOutputStream.writeUTF(guildUUID.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }

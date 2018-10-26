@@ -47,6 +47,11 @@ public class JClientGuildControlListener implements IncomingDataListener {
                     e.printStackTrace();
                 }
             }
+            if (subChannel.equalsIgnoreCase("request_confirm_guild_action")) {
+                UUID playerUUID = UUID.fromString(in.readUTF());
+                UUID guildUUID = UUID.fromString(in.readUTF());
+                GuildConnectorManager.requestGuildConfirm(playerUUID, guildUUID);
+            }
 
         } catch (IOException e1) {
             e1.printStackTrace();
