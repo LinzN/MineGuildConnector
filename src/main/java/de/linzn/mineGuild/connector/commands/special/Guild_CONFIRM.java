@@ -47,7 +47,6 @@ public class Guild_CONFIRM implements ICommand {
         UUID actor = player.getUniqueId();
         GuildPlayer guildPlayer = GuildDatabase.getGuildPlayer(player.getUniqueId());
         if (guildPlayer == null) {
-            player.sendMessage(LanguageDB.NO_PERMISSIONS);
             return true;
         }
         if (!GuildDatabase.guildActionRequests.containsKey(guildPlayer.getUUID())) {

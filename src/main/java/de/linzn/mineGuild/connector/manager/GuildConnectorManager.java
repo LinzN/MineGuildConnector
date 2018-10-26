@@ -131,7 +131,7 @@ public class GuildConnectorManager {
         int counter = 0;
         while (GuildDatabase.guildActionRequests.containsKey(playerUUID)) {
             try {
-                Thread.sleep(50);
+                Thread.sleep(70);
             } catch (InterruptedException ignored) {
             }
             if (counter >= 100) { /* 5000 ms cancel task */
