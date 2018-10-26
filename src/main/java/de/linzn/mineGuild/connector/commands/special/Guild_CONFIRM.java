@@ -55,7 +55,7 @@ public class Guild_CONFIRM implements ICommand {
         }
 
         GuildDatabase.guildActionRequests.remove(guildPlayer.getUUID());
-        JClientGuildControlOutput.send_guild_action_confirm(actor, guildPlayer.getUUID());
+        JClientGuildControlOutput.send_guild_action_confirm(actor, guildPlayer.getGuild().guildUUID);
         return true;
     }
 }
