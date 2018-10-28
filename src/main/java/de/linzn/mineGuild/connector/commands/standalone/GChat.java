@@ -11,7 +11,9 @@
 
 package de.linzn.mineGuild.connector.commands.standalone;
 
+import de.linzn.mineGuild.connector.GuildDatabase;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
+import de.linzn.mineGuild.connector.objects.GuildPlayer;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import de.linzn.mineSuite.chat.socket.JClientChatOutput;
 import de.linzn.mineSuite.chat.utils.VaultAccess;
@@ -51,6 +53,11 @@ public class GChat implements CommandExecutor {
         }
         cmdThread.submit(() -> {
             if (args.length == 0) {
+                GuildPlayer guildPlayer = GuildDatabase.getGuildPlayer(player.getUniqueId());
+                if (guildPlayer == null) {
+                    sender.sendMessage(LanguageDB.NOT_IN_GUILD);
+                    return;
+                }
                 JClientChatOutput.channelSwitch(sender.getName(), "GUILD");
                 sender.sendMessage(GeneralLanguage.chat_SWITCH.replace("{channel}", "GUILD"));
                 return;

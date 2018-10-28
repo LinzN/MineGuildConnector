@@ -16,6 +16,7 @@ import org.bukkit.ChatColor;
 public class LanguageDB {
 
     public static String NO_PERMISSIONS = ChatColor.DARK_RED + "Du hast keine Berechtigung!";
+    public static String NOT_IN_GUILD = ChatColor.DARK_RED + "Dies funktioniert ohne Gilde leider nicht!";
     public static String NOT_A_NUMBER = ChatColor.DARK_RED + "Dies ist keine gültige Zahl!";
     public static String NO_CONSOLE = ChatColor.DARK_RED + "Dies geht nur ingame!";
     public static String NOT_ENOUGH_TRANSACTION = ChatColor.DARK_RED + "Die kleinstmögliche Transaktion ist {zahl}!";
