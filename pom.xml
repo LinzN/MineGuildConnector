@@ -39,7 +39,7 @@
         <dependency>
             <groupId>Jobs</groupId>
             <artifactId>jobs</artifactId>
-            <version>4.7.2</version>
+            <version>4.9.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -52,7 +52,6 @@
             <groupId>de.linzn</groupId>
             <artifactId>mineSuiteCore</artifactId>
             <version>2.1.0</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>de.linzn</groupId>
@@ -65,6 +64,11 @@
             <artifactId>mineLib</artifactId>
             <version>1.1.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>de.linzn</groupId>
+            <artifactId>jSocket</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
     <build>
