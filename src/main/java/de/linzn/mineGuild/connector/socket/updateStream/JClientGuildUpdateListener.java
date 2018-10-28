@@ -43,20 +43,23 @@ public class JClientGuildUpdateListener implements IncomingDataListener {
                 UUID guildUUID = UUID.fromString(in.readUTF());
                 int level = in.readInt();
                 GuildConnectorManager.update_guild(guildUUID, level);
+                //todo fire guildUpdateEvent (levelup)
             }
 
-            if (subChannel.equalsIgnoreCase("guild_remove_guild")) {
+            if (subChannel.equalsIgnoreCase("guild_disband_guild")) {
                 UUID guildUUID = UUID.fromString(in.readUTF());
-                GuildConnectorManager.remove_guild(guildUUID);
+                String sourceServer = in.readUTF();
+                GuildConnectorManager.remove_guild(guildUUID, sourceServer);
             }
 
-            if (subChannel.equalsIgnoreCase("guild_add_guild")) {
+            if (subChannel.equalsIgnoreCase("guild_create_guild")) {
                 UUID actorUUID = UUID.fromString(in.readUTF());
                 UUID guildUUID = UUID.fromString(in.readUTF());
                 int level = in.readInt();
                 Guild guild = new Guild(guildUUID);
                 guild.setLevel(level);
-                GuildConnectorManager.add_guild(guild, actorUUID);
+                String sourceServer = in.readUTF();
+                GuildConnectorManager.add_guild(guild, actorUUID, sourceServer);
             }
 
             if (subChannel.equalsIgnoreCase("guild_remove_guildplayer")) {
@@ -84,11 +87,6 @@ public class JClientGuildUpdateListener implements IncomingDataListener {
                 TransactionManager.player_deposit_transaction(guildUUID, playerUUID, amount);
             }
 
-            if (subChannel.equalsIgnoreCase("plugin_migrate_data")) {
-                UUID guildUUID = UUID.fromString(in.readUTF());
-                String guildName = in.readUTF();
-                TransactionManager.migrate_guild_to_uuid(guildUUID, guildName);
-            }
 
         } catch (IOException e1) {
             e1.printStackTrace();

@@ -13,6 +13,7 @@ package de.linzn.mineGuild.connector.socket.controlStream;
 
 import de.linzn.jSocket.core.IncomingDataListener;
 import de.linzn.mineGuild.connector.manager.GuildConnectorManager;
+import de.linzn.mineGuild.connector.manager.TransactionManager;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -51,6 +52,12 @@ public class JClientGuildControlListener implements IncomingDataListener {
                 UUID playerUUID = UUID.fromString(in.readUTF());
                 UUID guildUUID = UUID.fromString(in.readUTF());
                 GuildConnectorManager.requestGuildConfirm(playerUUID, guildUUID);
+            }
+
+            if (subChannel.equalsIgnoreCase("plugin_migrate_data")) {
+                UUID guildUUID = UUID.fromString(in.readUTF());
+                String guildName = in.readUTF();
+                TransactionManager.migrate_guild_to_uuid(guildUUID, guildName);
             }
 
         } catch (IOException e1) {

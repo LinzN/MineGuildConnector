@@ -13,6 +13,9 @@ package de.linzn.mineGuild.connector.manager;
 
 import de.linzn.mineGuild.connector.GuildDatabase;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
+import de.linzn.mineGuild.connector.events.GuildCreateEvent;
+import de.linzn.mineGuild.connector.events.GuildDisbandEvent;
+import de.linzn.mineGuild.connector.events.GuildUpdateEvent;
 import de.linzn.mineGuild.connector.objects.Guild;
 import de.linzn.mineGuild.connector.objects.GuildPlayer;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
@@ -26,13 +29,18 @@ import java.util.UUID;
 
 public class GuildConnectorManager {
 
-    public static void add_guild(Guild guild, UUID creator) {
+    public static void add_guild(Guild guild, UUID creator, String sourceServer) {
         GuildDatabase.addGuild(guild);
-        MineGuildConnectorPlugin.inst().getLogger().info("Added new guild " + guild.guildUUID.toString());
+        MineGuildConnectorPlugin.inst().getLogger().info("Create new guild " + guild.guildUUID.toString());
         add_guildplayer(guild.guildUUID, creator);
+        GuildCreateEvent guildCreateEvent = new GuildCreateEvent(guild, sourceServer);
+        if (guildCreateEvent.isSourceServer()) {
+            TransactionManager.create_guild_account(guild.guildUUID);
+        }
+        MineGuildConnectorPlugin.inst().getServer().getPluginManager().callEvent(guildCreateEvent);
     }
 
-    public static void remove_guild(UUID guildUUID) {
+    public static void remove_guild(UUID guildUUID, String sourceServer) {
         Guild guild = GuildDatabase.getGuild(guildUUID);
         if (guild != null) {
             for (GuildPlayer guildPlayer : guild.guildPlayers) {
@@ -42,13 +50,20 @@ public class GuildConnectorManager {
             }
         }
         GuildDatabase.removeGuild(guildUUID);
-        MineGuildConnectorPlugin.inst().getLogger().info("Removed guild " + guildUUID.toString());
+        MineGuildConnectorPlugin.inst().getLogger().info("Disband guild " + guildUUID.toString());
+        GuildDisbandEvent guildDisbandEvent = new GuildDisbandEvent(guild, sourceServer);
+        if (guildDisbandEvent.isSourceServer()) {
+            TransactionManager.delete_guild_account(guildUUID);
+        }
+        MineGuildConnectorPlugin.inst().getServer().getPluginManager().callEvent(guildDisbandEvent);
     }
 
     public static void update_guild(UUID guildUUID, int level) {
         Guild guild = GuildDatabase.getGuild(guildUUID);
         guild.setLevel(level);
-        MineGuildConnectorPlugin.inst().getLogger().info("Updated guild " + guild.guildUUID.toString());
+        MineGuildConnectorPlugin.inst().getLogger().info("Updated guild " + guild.guildUUID.toString() + " LVL: " + level);
+        GuildUpdateEvent guildUpdateEvent = new GuildUpdateEvent(guild, level);
+        MineGuildConnectorPlugin.inst().getServer().getPluginManager().callEvent(guildUpdateEvent);
     }
 
     public static void add_guildplayer(UUID guildUUID, UUID playerUUID) {

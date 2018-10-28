@@ -15,6 +15,22 @@ public class TransactionManager {
     private static Economy eCon = MineSuiteCorePlugin.getEconomy();
     private static Chat chat = MineSuiteCorePlugin.getChat();
 
+
+    public static void create_guild_account(UUID guildUUID) {
+        String guildUUIDName = create_guild_name(guildUUID);
+        if (!eCon.hasAccount(guildUUIDName)) {
+            eCon.createPlayerAccount(guildUUIDName);
+        }
+        eCon.withdrawPlayer(guildUUIDName, eCon.getBalance(guildUUIDName));
+    }
+
+    public static void delete_guild_account(UUID guildUUID) {
+        String guildUUIDName = create_guild_name(guildUUID);
+        if (eCon.hasAccount(guildUUIDName)) {
+            eCon.withdrawPlayer(guildUUIDName, eCon.getBalance(guildUUIDName));
+        }
+    }
+
     public static void player_deposit_transaction(UUID guildUUID, UUID playerUUID, double amount) {
         if (amount <= 0) {
             return;
@@ -99,7 +115,7 @@ public class TransactionManager {
     }
 
     public static void player_unset_prefix(Player player) {
-            chat.setPlayerPrefix(player, null);
+        chat.setPlayerPrefix(player, null);
     }
 
     public static void migrate_guild_to_uuid(UUID guildUUID, String guildName) {
