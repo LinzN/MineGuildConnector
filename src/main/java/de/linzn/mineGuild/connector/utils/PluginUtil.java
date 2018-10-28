@@ -83,11 +83,17 @@ public class PluginUtil {
         return value;
     }
 
-    public static boolean is_valid_guild_name(String str) {
-        char[] charArray = str.toCharArray();
-        for (char c : charArray) {
-            if (!Character.isLetterOrDigit(c))
+    public static boolean is_valid_guild_name(String guildName) {
+        if (!Character.isLetter(guildName.charAt(0))) {
+            return false;
+        }
+        if (guildName.length() < 4 || guildName.length() >= 20) {
+            return false;
+        }
+        for (char c : guildName.toCharArray()) {
+            if (!Character.isLetterOrDigit(c)) {
                 return false;
+            }
         }
         return true;
     }
