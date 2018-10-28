@@ -60,6 +60,12 @@
             <version>2.1.0</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>de.linzn</groupId>
+            <artifactId>mineLib</artifactId>
+            <version>1.1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>

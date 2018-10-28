@@ -38,6 +38,7 @@ public class GuildConnectorManager {
             TransactionManager.create_guild_account(guild.guildUUID);
         }
         MineGuildConnectorPlugin.inst().getServer().getPluginManager().callEvent(guildCreateEvent);
+        MineGuildConnectorPlugin.inst().getLogger().info("Fired GuildCreateEvent");
     }
 
     public static void remove_guild(UUID guildUUID, String sourceServer) {
@@ -56,6 +57,7 @@ public class GuildConnectorManager {
             TransactionManager.delete_guild_account(guildUUID);
         }
         MineGuildConnectorPlugin.inst().getServer().getPluginManager().callEvent(guildDisbandEvent);
+        MineGuildConnectorPlugin.inst().getLogger().info("Fired GuildDisbandEvent");
     }
 
     public static void update_guild(UUID guildUUID, int level) {
@@ -64,6 +66,7 @@ public class GuildConnectorManager {
         MineGuildConnectorPlugin.inst().getLogger().info("Updated guild " + guild.guildUUID.toString() + " LVL: " + level);
         GuildUpdateEvent guildUpdateEvent = new GuildUpdateEvent(guild, level);
         MineGuildConnectorPlugin.inst().getServer().getPluginManager().callEvent(guildUpdateEvent);
+        MineGuildConnectorPlugin.inst().getLogger().info("Fired GuildUpdateEvent");
     }
 
     public static void add_guildplayer(UUID guildUUID, UUID playerUUID) {
