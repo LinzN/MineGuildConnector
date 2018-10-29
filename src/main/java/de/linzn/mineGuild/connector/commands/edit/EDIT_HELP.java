@@ -42,9 +42,9 @@ public class EDIT_HELP implements ICommand {
         if (args.length >= 2) {
             if (args[1].equalsIgnoreCase("2")) {
                 player.sendMessage(("§6§lGuild Edit: "));
-                player.sendMessage(" §2Gildennamen ändern: §e/guild edit guildname <Gildenname>");
-                player.sendMessage(" §2Gildenhome ändern: §e/guild edit guildhome confirm");
-                player.sendMessage(" §2Gildenmeister ändern: §e/guild edit guildmaster <Spielername>");
+                player.sendMessage(" §2Gildennamen ändern: §e/guild edit name <Gildenname>");
+                player.sendMessage(" §2Gildenhome ändern: §e/guild edit home");
+                player.sendMessage(" §2Gildenmeister ändern: §e/guild edit master <Spielername>");
                 return true;
             }
         }

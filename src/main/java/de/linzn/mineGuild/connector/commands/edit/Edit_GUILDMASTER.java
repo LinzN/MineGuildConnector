@@ -44,7 +44,7 @@ public class Edit_GUILDMASTER implements ICommand {
         }
 
         if (args.length < 2) {
-            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit guildmaster <Spielername>"));
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit master <Spielername>"));
             return true;
         }
 

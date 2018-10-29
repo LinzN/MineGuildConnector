@@ -44,8 +44,8 @@ public class Edit_GUILDHOME implements ICommand {
             return true;
         }
 
-        if (args.length < 2) {
-            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit guildhome confirm"));
+        if (args.length < 1) {
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit home"));
             return true;
         }
 

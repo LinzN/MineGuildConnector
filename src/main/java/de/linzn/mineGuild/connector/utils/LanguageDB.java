@@ -26,5 +26,5 @@ public class LanguageDB {
     public static String COMMAND_USAGE = ChatColor.RED + "Benutze: {command}";
     public static String TRANSACTION_SUCCESS = ChatColor.GREEN + "Transaktion von {zahl} Mines erfolgreich abgeschlossen!";
     public static String TRANSACTION_ERROR = ChatColor.DARK_RED + "Transaktion von {zahl} Mines fehlgeschlagen. Bitte an Admin wenden!";
-    public static String ACTION_WARNING = ChatColor.YELLOW + "Bist du dir bei dieser Aktion sicher? Bitte bestätigen: /guild confirm";
+    public static String ACTION_WARNING = ChatColor.YELLOW + "Bist du dir bei dieser Aktion sicher? \n" + ChatColor.GREEN + "Bitte bestätigen: " + ChatColor.YELLOW + ChatColor.BOLD + "/guild confirm";
 }

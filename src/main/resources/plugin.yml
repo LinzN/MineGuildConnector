@@ -42,9 +42,9 @@ permissions:
         description: Alle Guild permissions
         children:
             mineguild.edit.help: true
-            mineguild.edit.guildname: true
-            mineguild.edit.guildmaster: true
-            mineguild.edit.guildhome: true
+            mineguild.edit.name: true
+            mineguild.edit.master: true
+            mineguild.edit.home: true
     mineguild.rang.all:
         description: Alle Guild permissions
         children:
@@ -55,13 +55,11 @@ permissions:
             mineguild.rang.list: true
     mineguild.edit.help:
         default: op
-    mineguild.edit.guildname:
+    mineguild.edit.name:
         default: op
-    mineguild.edit.guildmaster:
+    mineguild.edit.master:
         default: op
-    mineguild.edit.guildhome:
-        default: op
-    mineguild.edit.setrang:
+    mineguild.edit.home:
         default: op
     mineguild.help:
         default: op

@@ -45,7 +45,7 @@ public class Edit_GUILDNAME implements ICommand {
         }
 
         if (args.length < 2) {
-            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit guildname <Gildenname>"));
+            player.sendMessage(LanguageDB.COMMAND_USAGE.replace("{command}", "/guild edit name <Gildenname>"));
             return true;
         }
 
