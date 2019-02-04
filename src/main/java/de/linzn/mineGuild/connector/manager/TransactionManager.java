@@ -109,13 +109,21 @@ public class TransactionManager {
     }
 
     public static void player_set_prefix(Player player) {
+        MineSuiteCorePlugin.getInstance().getLogger().info("Set guild prefix for " + player.getName());
         if (!player.hasPermission("mineguild.noprefix")) {
             chat.setPlayerPrefix(player, "§a");
         }
     }
 
     public static void player_unset_prefix(Player player) {
-        chat.setPlayerPrefix(player, null);
+        if (!player.hasPermission("mineguild.noprefix")) {
+            MineSuiteCorePlugin.getInstance().getLogger().info("Unset guild prefix for " + player.getName());
+            chat.setPlayerPrefix(player, null);
+        }
+    }
+
+    public static boolean hasPrefix(Player player) {
+        return chat.getPlayerPrefix(player) != null;
     }
 
     public static void migrate_guild_to_uuid(UUID guildUUID, String guildName) {
