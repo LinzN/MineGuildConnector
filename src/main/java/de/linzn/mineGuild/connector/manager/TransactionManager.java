@@ -112,6 +112,12 @@ public class TransactionManager {
         MineSuiteCorePlugin.getInstance().getLogger().info("Set guild prefix for " + player.getName());
         if (!player.hasPermission("mineguild.noprefix")) {
             chat.setPlayerPrefix(player, "§a");
+        } else {
+            if (chat.getPlayerPrefix(player) != null) {
+                if (chat.getPlayerPrefix(player).equalsIgnoreCase("§a") || chat.getPlayerPrefix(player).equalsIgnoreCase("&a")) {
+                    chat.setPlayerPrefix(player, null);
+                }
+            }
         }
     }
 
