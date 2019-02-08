@@ -11,10 +11,11 @@
 
 package de.linzn.mineGuild.connector.utils;
 
-import com.gmail.nossr50.datatypes.skills.SkillType;
+
+import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
 
 public class PluginUtil {
-    public static double get_mcmmo_skill_value(SkillType skill) {
+    public static double get_mcmmo_skill_value(PrimarySkillType skill) {
         double multiplier;
 
         switch (skill) {

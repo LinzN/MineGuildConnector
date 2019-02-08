@@ -12,8 +12,8 @@
 package de.linzn.mineGuild.connector.listener;
 
 import com.gmail.nossr50.api.ExperienceAPI;
-import com.gmail.nossr50.datatypes.skills.SkillType;
-import com.gmail.nossr50.datatypes.skills.XPGainReason;
+import com.gmail.nossr50.datatypes.experience.XPGainReason;
+import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
 import com.gmail.nossr50.events.experience.McMMOPlayerXpGainEvent;
 import de.linzn.mineGuild.connector.GuildDatabase;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
@@ -49,7 +49,7 @@ public class McmmoListener implements Listener {
             if (guild == null) {
                 return;
             }
-            final SkillType skill = event.getSkill();
+            final PrimarySkillType skill = event.getSkill();
             double multiplier = PluginUtil.get_mcmmo_skill_value(skill);
             double base = 1.95D;
             HashSet<GuildPlayer> hashSet = GuildConnectorManager.get_nearby_guild_player(gPlayer);
