@@ -3,8 +3,9 @@ package de.linzn.mineGuild.connector.manager;
 import de.linzn.mineGuild.connector.MineGuildConnectorPlugin;
 import de.linzn.mineGuild.connector.utils.LanguageDB;
 import de.linzn.mineSuite.core.MineSuiteCorePlugin;
+import de.linzn.mineSuite.economy.api.EconomyManager;
+import de.linzn.mineSuite.economy.utils.EconomyType;
 import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -12,22 +13,29 @@ import org.bukkit.entity.Player;
 import java.util.UUID;
 
 public class TransactionManager {
-    private static Economy eCon = MineSuiteCorePlugin.getEconomy();
+    //private static Economy eCon = MineSuiteCorePlugin.getEconomy();
     private static Chat chat = MineSuiteCorePlugin.getChat();
 
 
     public static void create_guild_account(UUID guildUUID) {
-        String guildUUIDName = create_guild_name(guildUUID);
-        if (!eCon.hasAccount(guildUUIDName)) {
-            eCon.createPlayerAccount(guildUUIDName);
+        //String guildUUIDName = create_guild_name(guildUUID);
+        //if (!eCon.hasAccount(guildUUIDName)) {
+        //    eCon.createPlayerAccount(guildUUIDName);
+        //}
+        //Con.withdrawPlayer(guildUUIDName, eCon.getBalance(guildUUIDName));
+        if (EconomyManager.hasProfile(guildUUID, EconomyType.GUILD)) {
+            EconomyManager.createProfile(guildUUID, EconomyType.GUILD);
         }
-        eCon.withdrawPlayer(guildUUIDName, eCon.getBalance(guildUUIDName));
+        EconomyManager.setProfileBalance(guildUUID, 0.0, EconomyType.GUILD);
     }
 
     public static void delete_guild_account(UUID guildUUID) {
-        String guildUUIDName = create_guild_name(guildUUID);
-        if (eCon.hasAccount(guildUUIDName)) {
-            eCon.withdrawPlayer(guildUUIDName, eCon.getBalance(guildUUIDName));
+        //String guildUUIDName = create_guild_name(guildUUID);
+        //if (eCon.hasAccount(guildUUIDName)) {
+        //    eCon.withdrawPlayer(guildUUIDName, eCon.getBalance(guildUUIDName));
+        //}
+        if (EconomyManager.hasProfile(guildUUID, EconomyType.GUILD)) {
+            EconomyManager.deleteProfile(guildUUID, EconomyType.GUILD);
         }
     }
 
@@ -35,25 +43,27 @@ public class TransactionManager {
         if (amount <= 0) {
             return;
         }
-        String guildUUIDName = create_guild_name(guildUUID);
+        // String guildUUIDName = create_guild_name(guildUUID);
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerUUID);
-        if (!has_enough_for_transaction(offlinePlayer.getName(), amount)) {
+        //if (!has_enough_for_transaction(offlinePlayer.getName(), amount)) {
+        if (!has_enough_for_transaction(offlinePlayer.getUniqueId(), amount, EconomyType.PLAYER)) {
             if (offlinePlayer.isOnline()) {
                 offlinePlayer.getPlayer().sendMessage(LanguageDB.NOT_ENOUGH_MONEY_TRANSACTION);
             }
             return;
         }
 
-        if (transaction(offlinePlayer.getName(), guildUUIDName, amount)) {
+        //if (transaction(offlinePlayer.getName(), guildUUIDName, amount)) {
+        if (EconomyManager.transactionBetweenProfiles(offlinePlayer.getUniqueId(), EconomyType.PLAYER, guildUUID, EconomyType.GUILD, amount)) {
             if (offlinePlayer.isOnline()) {
                 offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_SUCCESS.replace("{zahl}", "" + amount));
             }
-            MineGuildConnectorPlugin.inst().getLogger().info("Transaction SUCCESS: " + offlinePlayer.getName() + " to " + guildUUIDName + " :: " + amount);
+            MineGuildConnectorPlugin.inst().getLogger().info("Transaction SUCCESS: " + offlinePlayer.getName() + " to " + guildUUID + " :: " + amount);
         } else {
             if (offlinePlayer.isOnline()) {
                 offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_ERROR.replace("{zahl}", "" + amount));
             }
-            MineGuildConnectorPlugin.inst().getLogger().warning("Transaction ERROR: " + offlinePlayer.getName() + " to " + guildUUIDName + " :: " + amount);
+            MineGuildConnectorPlugin.inst().getLogger().warning("Transaction ERROR: " + offlinePlayer.getName() + " to " + guildUUID + " :: " + amount);
         }
 
     }
@@ -62,9 +72,9 @@ public class TransactionManager {
         if (amount <= 0) {
             return;
         }
-        String guildUUIDName = create_guild_name(guildUUID);
-        if (!eCon.depositPlayer(guildUUIDName, amount).transactionSuccess()) {
-            MineGuildConnectorPlugin.inst().getLogger().warning("Transaction ERROR: " + guildUUIDName + " :: " + amount);
+        //String guildUUIDName = create_guild_name(guildUUID);
+        if (!EconomyManager.depositProfile(guildUUID, amount, EconomyType.GUILD).transactionSuccess()) {
+            MineGuildConnectorPlugin.inst().getLogger().warning("Transaction ERROR: " + guildUUID.toString() + " :: " + amount);
         }
     }
 
@@ -74,14 +84,16 @@ public class TransactionManager {
         }
         String guildUUIDName = create_guild_name(guildUUID);
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerUUID);
-        if (!has_enough_for_transaction(guildUUIDName, amount)) {
+        //if (!has_enough_for_transaction(guildUUIDName, amount)) {
+        if (!has_enough_for_transaction(guildUUID, amount, EconomyType.GUILD)) {
             if (offlinePlayer.isOnline()) {
                 offlinePlayer.getPlayer().sendMessage(LanguageDB.NOT_ENOUGH_MONEY_TRANSACTION);
             }
             return;
         }
 
-        if (transaction(guildUUIDName, offlinePlayer.getName(), amount)) {
+        //if (transaction(guildUUIDName, offlinePlayer.getName(), amount)) {
+        if (transaction(guildUUID, EconomyType.GUILD, offlinePlayer.getUniqueId(), EconomyType.PLAYER, amount)) {
             if (offlinePlayer.isOnline()) {
                 offlinePlayer.getPlayer().sendMessage(LanguageDB.TRANSACTION_SUCCESS.replace("{zahl}", "" + amount));
             }
@@ -95,12 +107,21 @@ public class TransactionManager {
 
     }
 
-    private static boolean transaction(String sourceName, String targetName, double amount) {
-        return eCon.depositPlayer(targetName, amount).transactionSuccess() && eCon.withdrawPlayer(sourceName, amount).transactionSuccess();
+    //private static boolean transaction(String sourceName, String targetName, double amount) {
+    //    return eCon.depositPlayer(targetName, amount).transactionSuccess() && eCon.withdrawPlayer(sourceName, amount).transactionSuccess();
+    //}
+
+    private static boolean transaction(UUID sourceName, EconomyType sourceType, UUID targetName, EconomyType targetType, double amount) {
+        return EconomyManager.depositProfile(sourceName, amount, sourceType).transactionSuccess() && EconomyManager.withdrawProfile(targetName, amount, targetType).transactionSuccess();
+        //return eCon.depositPlayer(targetName, amount).transactionSuccess() && eCon.withdrawPlayer(sourceName, amount).transactionSuccess();
     }
 
-    private static boolean has_enough_for_transaction(String accountName, double amount) {
-        double bankAmount = eCon.getBalance(accountName);
+    //private static boolean has_enough_for_transaction(String accountName, double amount) {
+    //    double bankAmount = eCon.getBalance(accountName);
+    //    return bankAmount >= amount;
+    //}
+    private static boolean has_enough_for_transaction(UUID accountUUID, double amount, EconomyType type) {
+        double bankAmount = EconomyManager.getBalance(accountUUID, type);
         return bankAmount >= amount;
     }
 
@@ -132,17 +153,17 @@ public class TransactionManager {
         return chat.getPlayerPrefix(player) != null;
     }
 
-    public static void migrate_guild_to_uuid(UUID guildUUID, String guildName) {
-        double old_account = eCon.getBalance("Guild-" + guildName);
+    //public static void migrate_guild_to_uuid(UUID guildUUID, String guildName) {
+    //    double old_account = eCon.getBalance("Guild-" + guildName);
 
-        if (!eCon.hasAccount(create_guild_name(guildUUID))) {
-            eCon.createPlayerAccount(create_guild_name(guildUUID));
-        }
+    //    if (!eCon.hasAccount(create_guild_name(guildUUID))) {
+    //        eCon.createPlayerAccount(create_guild_name(guildUUID));
+    //    }
 
-        eCon.withdrawPlayer(create_guild_name(guildUUID), eCon.getBalance(create_guild_name(guildUUID))); /* Create a clean account */
-        eCon.depositPlayer(create_guild_name(guildUUID), old_account);
-        eCon.withdrawPlayer("Guild-" + guildName, eCon.getBalance("Guild-" + guildName)); /* Cleanup old account */
-        MineGuildConnectorPlugin.inst().getLogger().warning("Transaction migration: " + "Guild-" + guildName + " to " + create_guild_name(guildUUID) + " :: " + old_account);
-    }
+    //    eCon.withdrawPlayer(create_guild_name(guildUUID), eCon.getBalance(create_guild_name(guildUUID))); /* Create a clean account */
+    //    eCon.depositPlayer(create_guild_name(guildUUID), old_account);
+    //    eCon.withdrawPlayer("Guild-" + guildName, eCon.getBalance("Guild-" + guildName)); /* Cleanup old account */
+    //    MineGuildConnectorPlugin.inst().getLogger().warning("Transaction migration: " + "Guild-" + guildName + " to " + create_guild_name(guildUUID) + " :: " + old_account);
+    //}
 
 }
