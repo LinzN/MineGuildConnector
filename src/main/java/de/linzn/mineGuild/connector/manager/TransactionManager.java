@@ -153,17 +153,4 @@ public class TransactionManager {
         return chat.getPlayerPrefix(player) != null;
     }
 
-    //public static void migrate_guild_to_uuid(UUID guildUUID, String guildName) {
-    //    double old_account = eCon.getBalance("Guild-" + guildName);
-
-    //    if (!eCon.hasAccount(create_guild_name(guildUUID))) {
-    //        eCon.createPlayerAccount(create_guild_name(guildUUID));
-    //    }
-
-    //    eCon.withdrawPlayer(create_guild_name(guildUUID), eCon.getBalance(create_guild_name(guildUUID))); /* Create a clean account */
-    //    eCon.depositPlayer(create_guild_name(guildUUID), old_account);
-    //    eCon.withdrawPlayer("Guild-" + guildName, eCon.getBalance("Guild-" + guildName)); /* Cleanup old account */
-    //    MineGuildConnectorPlugin.inst().getLogger().warning("Transaction migration: " + "Guild-" + guildName + " to " + create_guild_name(guildUUID) + " :: " + old_account);
-    //}
-
 }
